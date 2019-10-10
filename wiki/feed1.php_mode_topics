@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-gb">
+<link rel="self" type="application/atom+xml" href="https://love2d.org/forums/feed.php?mode=topics" />
+
+<title>LÖVE</title>
+<link href="https://love2d.org/forums/index.php" />
+<updated>2016-04-02T21:50:53</updated>
+
+<author><name><![CDATA[LÖVE]]></name></author>
+<id>https://love2d.org/forums/feed.php?mode=topics</id>
+<entry>
+<author><name><![CDATA[ZBoyer1000]]></name></author>
+<updated>2016-04-02T21:50:53</updated>
+<published>2016-04-02T21:50:53</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82046&amp;p=197112#p197112</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82046&amp;p=197112#p197112"/>
+<title type="html"><![CDATA[General • Mini Functions Repository]]></title>
+
+<category term="General" scheme="https://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82046&amp;p=197112#p197112"><![CDATA[
+I thought it would be neat to create a place where people could post small functions that can do useful things and possibly help other people's projects.  <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-glad.png" alt=":D" title="Very Happy" /> <br /> <br />Here is a function I created that could help create game clocks:<br /><blockquote class="uncited"><div><br />gameClocks = {}<br />function clock(name, time)<br />index = 0<br /> for i = 1,#gameClocks do<br />   if gameClocks[i][1] == tostring(name) then<br /> index = i<br />   end<br /> end<br /> if index == 0 then<br />   local clock = {tostring(name), num = 0}<br />   table.insert(gameClocks, clock)<br /> elseif index ~= 0 then<br />   gameClocks[index].num = gameClocks[index].num + 1<br />   if gameClocks[index].num &gt;= time then gameClocks[index].num = 0 return true end<br /> end<br />end<br /></div></blockquote><br />Here is an example for it:  <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-surprised2.png" alt=":o:" title="Oh" /> <br />l = 0<br />z = 0<br />function love.update(dt)<br /> if clock(&quot;LClock&quot;, 20) == true then  <br /> l = l + 1 <br /> end<br /> if clock(&quot;ZClock&quot;, 1) == true then  <br /> z = z + 1 <br /> end<br /> love.graphics.print(tostring(z) .. &quot; : &quot; .. tostring(l))<br />end<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137266">ZBoyer1000</a> — Sat Apr 02, 2016 9:50 pm — Replies 0 — Views 10</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Mateus]]></name></author>
+<updated>2016-04-02T20:48:08</updated>
+<published>2016-04-02T20:48:08</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82045&amp;p=197108#p197108</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82045&amp;p=197108#p197108"/>
+<title type="html"><![CDATA[General • Please answer a quick form.]]></title>
+
+<category term="General" scheme="https://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82045&amp;p=197108#p197108"><![CDATA[
+Hello, I hope I don't break any rules. I had lot of troubles figuring out how to build easily for android API 10 or lower/higher.<br /><br />Just to be sure I made a quick form and I would really apreciate if you could answer. THANKS A LOT!<br /><br /><a href="http://goo.gl/forms/bXGN51QEGA" class="postlink">http://goo.gl/forms/bXGN51QEGA</a><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136502">Mateus</a> — Sat Apr 02, 2016 8:48 pm — Replies 0 — Views 29</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Mateus]]></name></author>
+<updated>2016-04-02T15:10:59</updated>
+<published>2016-04-02T15:10:59</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82043&amp;p=197100#p197100</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82043&amp;p=197100#p197100"/>
+<title type="html"><![CDATA[Support and Development • Love2d android for API 10]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82043&amp;p=197100#p197100"><![CDATA[
+Hey, is it possible to build LOVE apk for android 2.3.3 (API 10) ?<br /><br />Thanks!<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136502">Mateus</a> — Sat Apr 02, 2016 3:10 pm — Replies 0 — Views 35</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[fixylol]]></name></author>
+<updated>2016-04-02T14:46:59</updated>
+<published>2016-04-02T14:46:59</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82042&amp;p=197098#p197098</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82042&amp;p=197098#p197098"/>
+<title type="html"><![CDATA[General • love is planning world domination]]></title>
+
+<category term="General" scheme="https://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82042&amp;p=197098#p197098"><![CDATA[
+just think about it:<br />if you mouse over love.exe or love.dll, it says the company is &quot;LOVE World Domination Inc.&quot;<br />almost every built-in function/callback/table in love is under the table &quot;love&quot;<br />one of the admins encouraged putting &quot;obey&quot; in the user avatars<br /><br />it is only a matter of time before love takes over the entire world with its cute art and easy to learn scripting...<br /><br />not enough? take a look at this:<br /><br />love is a 2d engine.<br /><br />love uses lua.<br /><br />lua has 3 letters.<br /><br />a triangle in 2d has 3 sides...<br /><br />oh my god...<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137590">fixylol</a> — Sat Apr 02, 2016 2:46 pm — Replies 0 — Views 63</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[whitebear]]></name></author>
+<updated>2016-04-01T18:47:35</updated>
+<published>2016-04-01T18:47:35</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82041&amp;p=197068#p197068</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82041&amp;p=197068#p197068"/>
+<title type="html"><![CDATA[Projects and Demos • Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="https://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82041&amp;p=197068#p197068"><![CDATA[
+I two days ago found my self programming Tetris™ clone with Löve. Today I noticed that the MiniLD #66 was open for submissions. Decided to semi-troll.<br />Anyway. Here is my first proper game made with löve using object oriented methods. Next I plan to take it to bit different direction but decided to finish up proper clone first.<br />You can either follow path of LudumDare or grab the *.love file down bellow.<br /><a href="http://ludumdare.com/compo/minild-66/?action=preview&amp;uid=60315" class="postlink">http://ludumdare.com/compo/minild-66/?action=preview&amp;uid=60315</a><br /><div class="inline-attachment"><dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12977&amp;sid=5bbd1131a2eabefa84b3ae797750f6e0">LovelyTetromino.love</a></dt></dl></div><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=472">whitebear</a> — Fri Apr 01, 2016 6:47 pm — Replies 6 — Views 199</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[J4awesome]]></name></author>
+<updated>2016-04-01T18:28:07</updated>
+<published>2016-04-01T18:28:07</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197067#p197067</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197067#p197067"/>
+<title type="html"><![CDATA[Support and Development • Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197067#p197067"><![CDATA[
+Hi,<br />I new to love2d and I was wondering if there is a very simple way to spawn an enemy.The enemy need to be on the top of the screen and slowly coming down.I would also like for there to be about 2-3 enemies at a time.The size of the window for my game is 400x400.<br />Any help is great <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137733">J4awesome</a> — Fri Apr 01, 2016 6:28 pm — Replies 6 — Views 206</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[fixylol]]></name></author>
+<updated>2016-04-01T15:31:41</updated>
+<published>2016-04-01T15:31:41</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197063#p197063</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197063#p197063"/>
+<title type="html"><![CDATA[Support and Development • how do you make love.graphics.print print over images?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197063#p197063"><![CDATA[
+or was i doing something wrong?<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137590">fixylol</a> — Fri Apr 01, 2016 3:31 pm — Replies 2 — Views 74</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[monkeyman]]></name></author>
+<updated>2016-04-01T07:41:09</updated>
+<published>2016-04-01T07:41:09</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197053#p197053</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197053#p197053"/>
+<title type="html"><![CDATA[Support and Development • Trouble with collision resolution (sliding entities)]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197053#p197053"><![CDATA[
+Hi, I'm writing some collision code that I can't seem to get working the way I want. Here are the steps I'm taking to try to resolve collisions between a player moved by the arrow keys and a static box:<br /><br />Step 1: move player in response to key presses<br /><br />Step 2: check if the player's bounding box intersects with the box's bounding box, if so continue to step 3, otherwise back to step 1<br /><br />Step 3: check if the player collided with the box along the x axis, if so move the player to his previous x position (before the collision happened) and continue to step 4, otherwise go to step 5<br /><br />Step 4: check if the player collided with the box along the y axis, if so move the player to his previous y position, then go back to step 1<br /><br />Step 5: the player must have only collided along the y axis, so move the player to his previous y position, and leave his x position as-is<br /><br />So far the code mostly works, it resolves the collision nicely if the player is only moving in one direction (either at the box or along it), but if you try to move into the box diagonally the player stops in a jarring way. I'd like to be able to slide along the box while holding two keys. I've used Kikito's Bump library before and it handled the sliding behavior very well, but his code is slightly above my understanding so if I can code my own collision functions from scratch in a more simple way (even with outside help) that would be preferable.<br /><br />Any help you guys are able to provide would be great.<dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12974&amp;sid=5bbd1131a2eabefa84b3ae797750f6e0">collision.love</a></dt></dl><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137564">monkeyman</a> — Fri Apr 01, 2016 7:41 am — Replies 2 — Views 81</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Nuthen224]]></name></author>
+<updated>2016-03-31T20:59:43</updated>
+<published>2016-03-31T20:59:43</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82037&amp;p=197041#p197041</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82037&amp;p=197041#p197041"/>
+<title type="html"><![CDATA[Projects and Demos • [collection] Graveyard of Projects]]></title>
+
+<category term="Projects and Demos" scheme="https://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82037&amp;p=197041#p197041"><![CDATA[
+Hello! I've been working in LÖVE for a long time, but I've released so few projects. The other ones were either not as good as I expected, or I lost motivation to work on them. Here I'd like to occasionally post some of these unreleased projects. Perhaps you can learn from them or be inspired. (Or maybe you will understand why they weren't released before  <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-death.png" alt=":death:" title="Death" />)<br /><br />If you are motivated, please post your own unfinished projects! We can all learn together!<br /><br /><span style="text-decoration: underline"><span style="font-size: 150%; line-height: normal">Fabled Blade</span></span><br />Created by Ikroth and Nuthen<br />Worked on from April 2014 - July 2014<br /><br /><strong>Things I like about it:</strong><br />- The node generation in the overworld<br />- The frame border around different things<br />- The nice pieces of art<br />- Fun combat - The animations and effects keep it engaging<br />- Animation on the battle victory screen<br /><br /><strong>Things I don't like about it:</strong><br />- Inconsistent art. Most of the art was found online.<br />- Boring overworld. You spend a lot of time on it, but it's just a few boring colors and flat surfaces.<br />- Too many underdeveloped systems (event, item, dialogue). I tried to make everything as extensive as possible, but I was too overambitious for what I was able to do at the time.<br /><br /><strong>What I can learn from it:</strong><br />- Focus on one thing at a time.<br />- Don't worry about having every feature. Do a few features well.<br /><br />Warning, the code is messy, and many things don't work. Today I would code it much differently. It is very playable though!<br /><br /><strong>Things to know when you play:</strong><br />- It's designed to work without a mouse. All of the navigation is done with arrow keys and enter/x to select.<br />- The goal of each area is to reach the purple node. That takes you to the next area.<br />- The blue nodes are towns.<br />- When walking onto a red node, there is a chance to enter battle with 1-3 enemies<br /><br /><img src="https://giant.gfycat.com/OccasionalUnnaturalDairycow.gif" class="postimage" alt="Image" /><dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12970&amp;sid=5bbd1131a2eabefa84b3ae797750f6e0">Fabled Blade.love</a></dt></dl><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=128603">Nuthen224</a> — Thu Mar 31, 2016 8:59 pm — Replies 0 — Views 94</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[airstruck]]></name></author>
+<updated>2016-03-31T19:44:43</updated>
+<published>2016-03-31T19:44:43</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82036&amp;p=197035#p197035</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82036&amp;p=197035#p197035"/>
+<title type="html"><![CDATA[General • How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="https://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82036&amp;p=197035#p197035"><![CDATA[
+I've been making a few changes to a <a href="https://github.com/airstruck/knife/blob/master/knife/chain.lua" class="postlink">module</a> containing a small utility function. The function is fairly simple, and the behavior is fairly straightforward. I'm having a hard time with the <a href="https://github.com/airstruck/knife/blob/master/readme/chain.md" class="postlink">documentation</a>, though. I'm never quite sure how to handle formal documentation for anything that doesn't line up neatly with procedural or OO paradigms.<br /><br />In particular, the function exposed by the module takes user-defined functions as its parameters, it passes generated functions into those UDFs to be invoked by the user, and returns yet another function. There are a lot of anonymous functions to document, basically. Actual use is very simple, but the documentation makes it look complicated.<br /><br />Does anyone have any tips on how to write decent documentation for this kind of thing?<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136704">airstruck</a> — Thu Mar 31, 2016 7:44 pm — Replies 5 — Views 232</p><hr />
+]]></content>
+</entry>
+</feed>

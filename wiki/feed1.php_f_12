@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-gb">
+<link rel="self" type="application/atom+xml" href="https://love2d.org/forums/feed.php?f=12" />
+
+<title>LÖVE</title>
+<link href="https://love2d.org/forums/index.php" />
+<updated>2016-03-31T11:24:47</updated>
+
+<author><name><![CDATA[LÖVE]]></name></author>
+<id>https://love2d.org/forums/feed.php?f=12</id>
+<entry>
+<author><name><![CDATA[T-Bone]]></name></author>
+<updated>2016-03-31T11:24:47</updated>
+<published>2016-03-31T11:24:47</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=197018#p197018</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=197018#p197018"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=197018#p197018"><![CDATA[
+About UWP apps on Xbox One, you'd still need an ID@Xbox account and sign an NDA if you want to release games (non-game apps don't need that). So it's still not trivial to get your game out there... But it should be technically possible.<br /><br />LöveFTW for W10 UWP is nearly finished, but needs some final tweaks. <br /><br />One more thing: It should also be possible to get Löve on the UWP via project Centennial. It seems quite well suited for games, as far as I understand. This is not a route that I will explore, but I encourage anybody interested to see if they can get that to work. Hard to say at this point if that solution would be better or worse than what I'm doing now.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=3355">T-Bone</a> — Thu Mar 31, 2016 11:24 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Ulydev]]></name></author>
+<updated>2016-03-31T05:34:47</updated>
+<published>2016-03-31T05:34:47</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=197004#p197004</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=197004#p197004"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=197004#p197004"><![CDATA[
+Here's what I get on a Macbook Pro with Intel Iris GPU<br /><img src="https://i.gyazo.com/f1ce24e200e139bb6d2b9f67db697173.png" class="postimage" alt="Image" /><br />But it looks pretty cool! <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-awesome.png" alt=":awesome:" title="I'M SO HAPPY I COULD SHIT A RAINBOW RIGHT NOW" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135889">Ulydev</a> — Thu Mar 31, 2016 5:34 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[anastasiaorosegirl]]></name></author>
+<updated>2016-03-30T20:36:59</updated>
+<published>2016-03-30T20:36:59</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196982#p196982</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196982#p196982"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196982#p196982"><![CDATA[
+Just wanted to say that I am really looking forward to this being integrated into LÖVE for some reason, even though I don't even own a Windows Phone. I have no idea why, but it excites me. Maybe because LÖVE on a Windows Phone is just something cool? Maybe it's because I just like the more obscure smartphones getting some attention? Maybe, just maybe, it's because of &quot;DEVELOPERS, DEVELOPERS, DEVELOPERS&quot;. Either way, totally stoked and hope this gets integrated into LÖVE proper.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137715">anastasiaorosegirl</a> — Wed Mar 30, 2016 8:36 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[HeadClot]]></name></author>
+<updated>2016-03-30T20:19:29</updated>
+<published>2016-03-30T20:19:29</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196979#p196979</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196979#p196979"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196979#p196979"><![CDATA[
+<blockquote><div><cite>undef wrote:</cite><br />Seems like <a href="http://www.polygon.com/2016/3/30/11318568/xbox-one-dev-kit" class="postlink">Microsoft is opening up their Xbox now</a> for uwp apps.<br />But they may only use 1GB of RAM - seems like a perfect fit for LÖVE <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-wink.png" alt=";)" title="Wink" /><br /></div></blockquote><br /><br />The 1GB will probably be phased out over time to give developers better development support for more complex games. <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><br /><br />Anyway - Glad to see Microsoft opening up.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136674">HeadClot</a> — Wed Mar 30, 2016 8:19 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[undef]]></name></author>
+<updated>2016-03-30T17:33:56</updated>
+<published>2016-03-30T17:33:56</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196969#p196969</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196969#p196969"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196969#p196969"><![CDATA[
+Seems like <a href="http://www.polygon.com/2016/3/30/11318568/xbox-one-dev-kit" class="postlink">Microsoft is opening up their Xbox now</a> for uwp apps.<br />But they may only use 1GB of RAM - seems like a perfect fit for LÖVE <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-wink.png" alt=";)" title="Wink" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=122723">undef</a> — Wed Mar 30, 2016 5:33 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[pevzi]]></name></author>
+<updated>2016-03-30T15:19:52</updated>
+<published>2016-03-30T15:19:52</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196955#p196955</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196955#p196955"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196955#p196955"><![CDATA[
+That's interesting. Here's what it looks like in both Chrome and Firefox when using Intel GPU:<br /><div class="inline-attachment"><dl class="file"><dt class="attach-image"><img src="https://love2d.org/forums/download/file.php?id=12964&amp;sid=e7b1d4aad52f457660723457d1eef0b7" class="postimage" alt="smoke_wrong.png" onclick="viewableArea(this);" /></dt></dl></div><br />But it works fine when I run the browser with a discrete NVIDIA GPU.<br />I use Windows 10 x64 with the latest 64-bit Chrome and Firefox.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=112054">pevzi</a> — Wed Mar 30, 2016 3:19 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Nixola]]></name></author>
+<updated>2016-03-30T15:05:48</updated>
+<published>2016-03-30T15:05:48</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196953#p196953</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196953#p196953"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196953#p196953"><![CDATA[
+It looks fine here; Linux x64, Firefox (latest), Intel GPU (up to date drivers). Care to give system specs?<br /><img src="http://static.niix.ga/i/558307681.png" class="postimage" alt="Image" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=12793">Nixola</a> — Wed Mar 30, 2016 3:05 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[pevzi]]></name></author>
+<updated>2016-03-30T15:03:03</updated>
+<published>2016-03-30T15:03:03</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196952#p196952</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196952#p196952"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196952#p196952"><![CDATA[
+There seems to be a problem with ParticleSystem drawn to a canvas. It is rendered correctly when drawn directly to the screen but when I try to render it to a canvas and then draw the canvas to the screen, it looks nothing like intended. <a href="http://pevzi.github.io/smoke/" class="postlink">Here's</a> an online example and <a href="https://github.com/pevzi/smoke" class="postlink">here's</a> the source code for it.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=112054">pevzi</a> — Wed Mar 30, 2016 3:03 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Tanner]]></name></author>
+<updated>2016-03-29T20:33:24</updated>
+<published>2016-03-29T20:33:24</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196908#p196908</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196908#p196908"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196908#p196908"><![CDATA[
+<blockquote><div><cite>AndreyMust19 wrote:</cite><br />In my case love.js loading 24.8 sec (in web-console). But still not work.<br /></div></blockquote><br />Unfortunately your game doesn't run with Love v0.10. The console messages should have tipped you off:<br /><br /><blockquote class="uncited"><div><br />This game indicates it was made for version '0.9.1' of LOVE.<br />It may not be compatible with the running version (0.10.1).<br /></div></blockquote><br /><br />I'd recommend you update your game for the most recent version of Love (it shouldn't hard). I have no plans of ever releasing Love.js to support versions of Love before 0.10.0.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=45757">Tanner</a> — Tue Mar 29, 2016 8:33 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[AndreyMust19]]></name></author>
+<updated>2016-03-29T17:31:34</updated>
+<published>2016-03-29T17:31:34</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196900#p196900</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196900#p196900"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196900#p196900"><![CDATA[
+In my case love.js loading 24.8 sec (in web-console). But still not work.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=134765">AndreyMust19</a> — Tue Mar 29, 2016 5:31 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[MadByte]]></name></author>
+<updated>2016-03-29T17:07:39</updated>
+<published>2016-03-29T17:07:39</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196899#p196899</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196899#p196899"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196899#p196899"><![CDATA[
+you can check the debug console in your browser to find out whats wrong. <br />I often had this problem when my file names doesn't equel the names I require/load in my code (e.g &quot;this.lua&quot; ~= &quot;This.lua&quot; [upper/lowercase sensitive])<br /><br />For me your game load up properly but it seems to be made for 0.9.1 (love.js is a 0.10.0 port).<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=116409">MadByte</a> — Tue Mar 29, 2016 5:07 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[AndreyMust19]]></name></author>
+<updated>2016-03-29T17:00:06</updated>
+<published>2016-03-29T17:00:06</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196898#p196898</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196898#p196898"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196898#p196898"><![CDATA[
+Hello.<br /><br />I made a web-build with this port, but i have stuck in &quot;Downloading...&quot; screen, with spinning circle progress bar.<br />Before that i have successful runs sometimes almost empty project, but is loading too long.<br /><br />What a problem?<br /><br /><a href="https://andreymust19.itch.io/colorfigures" class="postlink">Link</a> for test-build<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=134765">AndreyMust19</a> — Tue Mar 29, 2016 5:00 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[T-Bone]]></name></author>
+<updated>2016-03-27T19:35:58</updated>
+<published>2016-03-27T19:35:58</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196829#p196829</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196829#p196829"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196829#p196829"><![CDATA[
+<blockquote><div><cite>bartbes wrote:</cite><br /><blockquote><div><cite>T-Bone wrote:</cite>Just wondering, would you guys be interested in merging my changes into Löve's source code? There are very few changes, and it would be convenient to be able to use Löve's source code unchanged.<br /></div></blockquote><br />Yeah definitely. Can you send us a pull request?</div></blockquote><br />I'm using git on github, so I'm not quite sure how to do that (I'm not too familiar with hg, although it seems quite similar to git), but I'll probably be able to figure it out (or ask for help). I'll wait until LöveFTW 1.0 is finished, so that I know exactly what changes I need.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=3355">T-Bone</a> — Sun Mar 27, 2016 7:35 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[bartbes]]></name></author>
+<updated>2016-03-27T11:03:29</updated>
+<published>2016-03-27T11:03:29</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196806#p196806</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196806#p196806"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196806#p196806"><![CDATA[
+<blockquote><div><cite>T-Bone wrote:</cite><br />Just wondering, would you guys be interested in merging my changes into Löve's source code? There are very few changes, and it would be convenient to be able to use Löve's source code unchanged.<br /></div></blockquote><br />Yeah definitely. Can you send us a pull request?<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=147">bartbes</a> — Sun Mar 27, 2016 11:03 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[T-Bone]]></name></author>
+<updated>2016-03-27T09:03:51</updated>
+<published>2016-03-27T09:03:51</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196801#p196801</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196801#p196801"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196801#p196801"><![CDATA[
+<blockquote><div><cite>slime wrote:</cite><br />Nice! Just a heads up, the too-dark colors on the sprites is a bug in LÖVE that manifests when gamma correction is requested but not supported on OpenGL ES backends – I plan to fix it ASAP.<br /><br />EDIT: It should be fixed in the latest LÖVE source code on Bitbucket.<br /></div></blockquote><br />Nice! LöveFTW is currently using the 0.10.1 tag, but I'll merge in the latest from the default branch, then.<br /><br />Just wondering, would you guys be interested in merging my changes into Löve's source code? There are very few changes, and it would be convenient to be able to use Löve's source code unchanged.<br /><br />If you want to check out my changes, they're available at <!-- m --><a class="postlink" href="https://github.com/ahrnbom/love-uwp">https://github.com/ahrnbom/love-uwp</a><!-- m --><br /><br />If you're going to merge my changes, wait a few days until I've verified that everything works, I still probably have a few things to fix.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=3355">T-Bone</a> — Sun Mar 27, 2016 9:03 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[slime]]></name></author>
+<updated>2016-03-26T12:37:30</updated>
+<published>2016-03-26T12:37:30</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196726#p196726</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196726#p196726"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196726#p196726"><![CDATA[
+Nice! Just a heads up, the too-dark colors on the sprites is a bug in LÖVE that manifests when gamma correction is requested but not supported on OpenGL ES backends – I plan to fix it ASAP.<br /><br />EDIT: It should be fixed in the latest LÖVE source code on Bitbucket.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=1399">slime</a> — Sat Mar 26, 2016 12:37 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[T-Bone]]></name></author>
+<updated>2016-03-26T10:33:31</updated>
+<published>2016-03-26T10:33:31</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196722#p196722</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196722#p196722"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196722#p196722"><![CDATA[
+Well, look at that! <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-neko.png" alt=":neko:" title="Neko" /><dl class="file"><dt class="attach-image"><img src="https://love2d.org/forums/download/file.php?id=12943&amp;sid=e7b1d4aad52f457660723457d1eef0b7" class="postimage" alt="löveftw.png" onclick="viewableArea(this);" /></dt></dl><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=3355">T-Bone</a> — Sat Mar 26, 2016 10:33 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Devhochi]]></name></author>
+<updated>2016-03-24T18:08:51</updated>
+<published>2016-03-24T18:08:51</published>
+<id>https://love2d.org/forums/viewtopic.php?t=78867&amp;p=196657#p196657</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=78867&amp;p=196657#p196657"/>
+<title type="html"><![CDATA[Ports • Re: Raspberry Pi]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=78867&amp;p=196657#p196657"><![CDATA[
+<!-- m --><a class="postlink" href="http://pilove.mitako.eu/">http://pilove.mitako.eu/</a><!-- m --><br />Build for Pi 1 B+ and it works great. <br /><br />thread below;<br /><!-- l --><a class="postlink-local" href="https://love2d.org/forums/viewtopic.php?f=4&amp;t=81380&amp;p=193797&amp;hilit=pilove#p193797">viewtopic.php?f=4&amp;t=81380&amp;p=193797&amp;hilit=pilove#p193797</a><!-- l --><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=628">Devhochi</a> — Thu Mar 24, 2016 6:08 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Tanner]]></name></author>
+<updated>2016-03-18T11:43:56</updated>
+<published>2016-03-18T11:43:56</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196455#p196455</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196455#p196455"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196455#p196455"><![CDATA[
+<blockquote><div><cite>JaredSartin wrote:</cite><br />What can we do to help get more mobile/safari compatibility? Is it just the joysticks problem?<br /></div></blockquote><br />The issue with gamepads not being supported on Safari should be manageable using the release-compatibility build. You'll need to change your game to catch the error that will happen when you try to use the joystick module the first time.<br /><br />Maybe the biggest thing to help with mobile is to point me at a game that works well with touch interaction and isn't too simple.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=45757">Tanner</a> — Fri Mar 18, 2016 11:43 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[JaredSartin]]></name></author>
+<updated>2016-03-18T00:09:17</updated>
+<published>2016-03-18T00:09:17</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196445#p196445</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196445#p196445"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196445#p196445"><![CDATA[
+Awesome! Thanks for the links. What can we do to help get more mobile/safari compatibility? Is it just the joysticks problem?<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135343">JaredSartin</a> — Fri Mar 18, 2016 12:09 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Tanner]]></name></author>
+<updated>2016-03-17T19:26:03</updated>
+<published>2016-03-17T19:26:03</published>
+<id>https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196431#p196431</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196431#p196431"/>
+<title type="html"><![CDATA[Ports • Re: Love.js - A Direct Emscripten Port]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=81736&amp;p=196431#p196431"><![CDATA[
+I've put a lot of work into getting Love to build with emscripten using the existing Love cmake build system. Everything seems to be working now. It's still not for the faint of heart but everything is much more consolidated and straightforward than it was before.<br /><br />It requires, of course, the emscripten SDK to be installed. This project won't compile with the released binaries so you will need to use the pseudo-release tagged as `sdk-incoming-64bit`. If you can get that compiled and installed then the rest of this should be a cakewalk.<br /><br />Clone my fork of Megasource.<br /><!-- m --><a class="postlink" href="https://bitbucket.org/TannerRogalsky/megasource">https://bitbucket.org/TannerRogalsky/megasource</a><!-- m --><br /><br />And then clone my fork of Love into `libs/love` as per the megasource instructions.<br /><!-- m --><a class="postlink" href="https://bitbucket.org/TannerRogalsky/love">https://bitbucket.org/TannerRogalsky/love</a><!-- m --><br /><br />Check out the `emscripten` branch of each of these. Then make a build folder inside of megasource and run `emcmake cmake -H.. -B. &amp;&amp; emmake make`. It should spit out a debug `.js` build.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=45757">Tanner</a> — Thu Mar 17, 2016 7:26 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[SiENcE]]></name></author>
+<updated>2016-03-17T12:34:48</updated>
+<published>2016-03-17T12:34:48</published>
+<id>https://love2d.org/forums/viewtopic.php?t=8487&amp;p=196408#p196408</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=8487&amp;p=196408#p196408"/>
+<title type="html"><![CDATA[Ports • Re: Love2D WebPlayer (WebGL)]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=8487&amp;p=196408#p196408"><![CDATA[
+Sure. Here is the link to <a href="https://github.com/TannerRogalsky/love.js" class="postlink">https://github.com/TannerRogalsky/love.js</a><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=117">SiENcE</a> — Thu Mar 17, 2016 12:34 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[T-Bone]]></name></author>
+<updated>2016-03-17T12:21:11</updated>
+<published>2016-03-17T12:21:11</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196406#p196406</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196406#p196406"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196406#p196406"><![CDATA[
+<blockquote><div><cite>Jack5500 wrote:</cite><br />Great News, how far are you with actually adding Löve?<br /></div></blockquote><br />So far, nothing. Last time I did this, I added Löve when I had Lua, SDL, ANGLE and PhysFS (because that's all you need to run a really basic, stripped-down version of Löve that you can still verify that it works). But since adding Löve itself was very little work last time, the work of having to strip out all the other dependencies seems unnecessary to me. So my current plan is therefore to get all dependencies first, and then add Löve itself. And I'm about halfway through the dependencies now, I guess.<br /><br />Edit: OpenAL, libogg and libvorbis are now in place. I'm currently trying to get libtheora in.<br />Edit: libtheora is now in there. It will be very interesting to see how video performance is, especially on ARM devices <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-neko.png" alt=":neko:" title="Neko" /><br />Edit: Started on libmpg123. Looks really messy to compile... Will have to look how I did it last time, I think <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-razz.png" alt=":P" title="Razz" /><br />Edit: Looks like my previous solution was to simple skip out on libmpg123. Oh well, I'll probably do the same here.<br />Edit: FreeType is in there now.<br />Edit: zlib is in there now.<br />Edit: Löve's source code is in there. Doesn't quite compile yet but it's getting there.<br />Edit: Löve compiles now! It instantly segfaults when I try to run it (seems like a PhysFS issue) but it means I'm probably soon done!<br />Edit: PhysFS issues seem to be fixed. Now I get SDL/OpenGL issues when creating a context for the window... GLGears worked, so it should be possible. Will have to look into this...<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=3355">T-Bone</a> — Thu Mar 17, 2016 12:21 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Jack5500]]></name></author>
+<updated>2016-03-17T10:17:22</updated>
+<published>2016-03-17T10:17:22</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196402#p196402</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196402#p196402"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196402#p196402"><![CDATA[
+Great News, how far are you with actually adding Löve?<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=13156">Jack5500</a> — Thu Mar 17, 2016 10:17 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[T-Bone]]></name></author>
+<updated>2016-03-17T08:57:59</updated>
+<published>2016-03-17T08:57:59</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196401#p196401</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196401#p196401"/>
+<title type="html"><![CDATA[Ports • Re: LöveFTW - preview release]]></title>
+
+<category term="Ports" scheme="https://love2d.org/forums/viewforum.php?f=12" label="Ports"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80038&amp;p=196401#p196401"><![CDATA[
+I THINK I've gotten PhysFS to work now, had to report it to WinRT because the old one I did last time refused to compile for some reason. <br /><br />Another piece of great news is that UWP apps are officially coming to the Xbox One this summer! This means that LöveFTW will be Löve's first generally available port to a big-name game console!<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=3355">T-Bone</a> — Thu Mar 17, 2016 8:57 am</p><hr />
+]]></content>
+</entry>
+</feed>

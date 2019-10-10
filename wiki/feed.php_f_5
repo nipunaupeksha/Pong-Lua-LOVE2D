@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-gb">
+<link rel="self" type="application/atom+xml" href="http://love2d.org/forums/feed.php?f=5" />
+
+<title>LÖVE</title>
+<link href="http://love2d.org/forums/index.php" />
+<updated>2016-04-02T21:13:45</updated>
+
+<author><name><![CDATA[LÖVE]]></name></author>
+<id>http://love2d.org/forums/feed.php?f=5</id>
+<entry>
+<author><name><![CDATA[mr_happy]]></name></author>
+<updated>2016-04-02T21:13:45</updated>
+<published>2016-04-02T21:13:45</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197110#p197110</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197110#p197110"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197110#p197110"><![CDATA[
+Good stuff and it plays ok but I noticed these things:<br /><br /><ul><li>I think you need to flush the input after using 'down' (fast fall or whatever you might call it - as a former Tetris monster I used that key habitually until the score got up into the tens of thousands!) as it continues to affect the next piece which I'm pretty sure didn't happen in the original.<br /></li><li>The music made me laugh, started like a church service then went off into the cheeeeeeziest chord progression. I had to turn it off quickly <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-glad.png" alt=":D" title="Very Happy" /><br /></li><li>One cell in each piece is brighter than the rest (eg the centre in the T-shaped piece) - not sure if that is intentional but couldn't think of a reason for it (or maybe it's not brighter, it's just my old eyes?!)<br /></li><li>There's a bit of shearing when drawing/moving the pieces; I had a <em>very</em> quick look at the code and spotted some things you could optimise although <strong>I'm not sure how much difference they would make</strong> - eg removing the function call for GameGrid.RenderTile that gets called about 200 times every frame and placing it in-line, removing the algebraic operations from that function etc. I know little about Love/Lua atm but I suspect that creating/blitting an image for the grid squares would be quicker than using primitives to draw them.</li></ul><br />Nice clean code though, even for a Love novice like me to follow!<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137691">mr_happy</a> — Sat Apr 02, 2016 9:13 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[DavidOliveiraSilva]]></name></author>
+<updated>2016-04-02T17:23:59</updated>
+<published>2016-04-02T17:23:59</published>
+<id>http://love2d.org/forums/viewtopic.php?t=80826&amp;p=197102#p197102</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=80826&amp;p=197102#p197102"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Loophole - 2D Puzzle Platformer]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=80826&amp;p=197102#p197102"><![CDATA[
+Amazing!<br />Very beautiful game. A bgm would be nice<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136687">DavidOliveiraSilva</a> — Sat Apr 02, 2016 5:23 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[kikito]]></name></author>
+<updated>2016-04-02T14:27:15</updated>
+<published>2016-04-02T14:27:15</published>
+<id>http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197096#p197096</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197096#p197096"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [library] gamera - A camera system for LÖVE - v1.0.1 is out]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197096#p197096"><![CDATA[
+@endlesstravel: There are several things wrong with your code. Let me explain:<br /><br /><ul><li>You are &quot;reusing&quot; the same camera (the variable called <strong>cam</strong>) to display two viewports. That is not a good idea. Instead, use two cameras, one called <strong>cam1</strong> and another called <strong>cam2</strong> (or <strong>camLeft</strong> and <strong>camRight</strong>). One will be used for the left &quot;window&quot; and the other for the right &quot;window&quot; (these are called &quot;viewports&quot; in gamera).</li><li>It seems you don't understand what the &quot;world&quot; is in gamera: The world is your &quot;how many pixels does your whole level have&quot; (with a 1:1 scale). I think in your case it is (0, 0, 1800, 800). And it should be that for both cameras, since they are on the same world. You don't need to &quot;set it up&quot; on every frame, just use that instead of (0,0,800,600) when creating the cameras.</li><li>Since your game world does not change in size while you play with it, you don't need to &quot;reset&quot; the world on every frame - you can leave it &quot;fixed&quot; when you create both cameras. </li><li>The same happens with the viewport and the scale. Since they don't change, you can set them once right after create the cameras. There is no need to do it on every frame. </li></ul><br /><br />@meowman9000:<br /><br />Your life would be much easier if your tiles were organized in a two-dimensional table, instead of using a monodimensional one. I have an article which explains both of them here: <!-- m --><a class="postlink" href="https://github.com/kikito/love-tile-tutorial/wiki/0b-tables">https://github.com/kikito/love-tile-tut ... /0b-tables</a><!-- m --><br /><br />There are several things on this line:<br /><div class="codebox"><p>Code: </p><code>love.graphics.draw(tileset, Quads&#91;mymap.layers&#91;1&#93;.data&#91;wholeMap&#91;visibleItems&#91;i&#93;&#93;&#91;1&#93;&#93;&#93;,wholeMap&#91;visibleItems&#91;i&#93;&#93;&#91;2&#93;,wholeMap&#91;visibleItems&#91;i&#93;&#93;&#91;3&#93;)</code></div><br /><br /><ul><li>First, you could make it easier to read (and also faster) if you used local variables for the repeated parts. <strong>wholeMap[visibleItems[i]</strong>, is a good candidate.</li><li>Second, your drawing function is called <strong> levelUpdate</strong>. Yet it doesn't update anything. That's quite misleading. It also has a comment right before it which says &quot;draw map&quot;. I strongly suggest you rename it to <strong>drawMap</strong> and remove that comment.</li><li>Third, the name bumpworldRef is very inconsistent. The uppercase/lowercase rule is broken (it should be <strong>bumpWorldRef</strong>, not <strong>bumpworldRef</strong>), and also you don't use &quot;Ref&quot; for other tables in your code, so you might as well remove that part, and leave it in <strong>bumpWorld</strong>.</li><li>Last, using &quot;magical numbers&quot; like [1], [2] and [3] makes the code less clear. If you can, organize your tables so that you use names instead - like &quot;quadName&quot;, &quot;x&quot; and &quot;y&quot;. The drawing code would look like this:</li></ul><br /><div class="codebox"><p>Code: </p><code>function drawLevel(bumpWorld)<br />   local visibleItems, len = bumpWorld:queryRect(0,0,800,600)<br />   for i=1, len do<br />     local tile = wholeMap&#91;visibleItems&#91;i&#93;&#93;<br />     local quad = Quads&#91;mymap.layers&#91;1&#93;.data&#91;tile.quadName&#93;&#93;<br />     love.graphics.draw(tileset, quad, tile.x, tile.y)<br />   end<br /> end<br /></code></div><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=710">kikito</a> — Sat Apr 02, 2016 2:27 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[whitebear]]></name></author>
+<updated>2016-04-02T13:02:48</updated>
+<published>2016-04-02T13:02:48</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197095#p197095</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197095#p197095"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197095#p197095"><![CDATA[
+<blockquote><div><cite>anastasiaorosegirl wrote:</cite><br />Thanks! are the controls listed somewhere?<br /></div></blockquote><br /><a href="https://drteaspoon.itch.io/lovelytet" class="postlink">https://drteaspoon.itch.io/lovelytet</a><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=472">whitebear</a> — Sat Apr 02, 2016 1:02 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[zorg]]></name></author>
+<updated>2016-04-02T12:53:57</updated>
+<published>2016-04-02T12:53:57</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82021&amp;p=197094#p197094</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82021&amp;p=197094#p197094"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [WIP]BeatFever Mania ~ osu! Engine reimplementation]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82021&amp;p=197094#p197094"><![CDATA[
+C&amp;D?<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=80325">zorg</a> — Sat Apr 02, 2016 12:53 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[adekto]]></name></author>
+<updated>2016-04-02T09:59:53</updated>
+<published>2016-04-02T09:59:53</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197092#p197092</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197092#p197092"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [lib] maid64 - square low resolution system]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197092#p197092"><![CDATA[
+not sure if i should add a shader selection to maid64, any ideas or sugestions?<br /><br />made a cga mode and some others just to try it out, never done anything like this<br /><div class="codebox"><p>Code: </p><code>mode  = {<br />    &#91;&#91;  // mode 1 - CGA mode<br />        vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )<br />        {<br />            vec4 texcolor = Texel(texture, texture_coords);<br />            vec4 col = step(0.5,texcolor);<br />            if(col == vec4(1.,1.,1.,1.)) return col * color;<br />            if(col == vec4(0.,0.,0.,1.)) return col * color;<br />            if(col.r == 1.0) col = vec4(1.,0.,1.,col.a);<br />            if(col.r == 0.) col = vec4(0.,1.,1.,col.a);<br />            return col * color;<br />        }<br />    &#93;&#93;<br />    ,<br />    &#91;&#91; // mode 2 - prime color mode<br />        vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )<br />        {<br />            vec4 texcolor = Texel(texture, texture_coords);<br />            return step(0.5,texcolor) * color;<br />        }<br />    &#93;&#93;<br />    ,<br />    &#91;&#91; // mode 3 - 8bit color mode?<br />        vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )<br />        {<br />            vec4 texcolor = Texel(texture, texture_coords);<br />            return  ((step(0.25,texcolor)+step(0.75,texcolor))/2)* color;<br />        }<br />    &#93;&#93;<br />    }<br /><br />    shader = love.graphics.newShader(mode&#91;1&#93;)<br />    love.graphics.setShader(shader)<br />    </code></div><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=79341">adekto</a> — Sat Apr 02, 2016 9:59 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Davidobot]]></name></author>
+<updated>2016-04-02T09:00:39</updated>
+<published>2016-04-02T09:00:39</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82021&amp;p=197091#p197091</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82021&amp;p=197091#p197091"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [WIP]BeatFever Mania ~ osu! Engine reimplementation]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82021&amp;p=197091#p197091"><![CDATA[
+Just want to let you know that <!-- m --><a class="postlink" href="https://github.com/danielpontello/beatfever">https://github.com/danielpontello/beatfever</a><!-- m --> is no longer a thing..<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=44056">Davidobot</a> — Sat Apr 02, 2016 9:00 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[adekto]]></name></author>
+<updated>2016-04-02T06:51:03</updated>
+<published>2016-04-02T06:51:03</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197088#p197088</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197088#p197088"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [lib] maid64 - square low resolution system]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197088#p197088"><![CDATA[
+whoops, il try and fix that, im not to happy about it and will probebly change.<br /><br />maybe something not to well explained is the init parameter you can change, for example if you like the pico8 resolution:<br /><div class="codebox"><p>Code: </p><code>--initilizing maid64 for 128x128<br />    maid64(128)<br />    </code></div><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=79341">adekto</a> — Sat Apr 02, 2016 6:51 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[meowman9000]]></name></author>
+<updated>2016-04-02T04:18:16</updated>
+<published>2016-04-02T04:18:16</published>
+<id>http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197085#p197085</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197085#p197085"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [library] gamera - A camera system for LÖVE - v1.0.1 is out]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197085#p197085"><![CDATA[
+I've got bump drawing the visible parts of my level, though it aint pretty.   <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-ultrahappy.png" alt=":ultrahappy:" title="Ultrahappy" /> <br /><br /><div class="codebox"><p>Code: </p><code>  --Create Map<br /> function createMap(bumpWorldRef)<br />  wholeMap = {}<br />  wholeMap&#91;10000&#93; = 0<br />   rowIndex = 0<br />   columnIndex = 0<br />   for index=1, #mymap.layers&#91;1&#93;.data do<br />            if columnIndex == 40 then<br />                  columnIndex=0<br />                  rowIndex=rowIndex+1<br />            end<br />            local xpos = (columnIndex)*90<br />            local ypos = (rowIndex)*30<br />            <br />           wholeMap&#91;index&#93; = {index,xpos,ypos}<br />           bumpworldRef:add(index,xpos,ypos,tileWidth,tileHeight)<br />            columnIndex=columnIndex+1<br />   end<br />end<br /><br />--draw map<br />function levelUpdate(bumpworldRef)<br />   local visibleItems, len = bumpworldRef:queryRect(0,0,800,600)<br />  for i=1, len do<br />    love.graphics.draw(tileset, Quads&#91;mymap.layers&#91;1&#93;.data&#91;wholeMap&#91;visibleItems&#91;i&#93;&#93;&#91;1&#93;&#93;&#93;,wholeMap&#91;visibleItems&#91;i&#93;&#93;&#91;2&#93;,wholeMap&#91;visibleItems&#91;i&#93;&#93;&#91;3&#93;)<br />  end</code></div><br /><br />I then use Gamera to split the level into two windows.  Any tips on improving this mess would be a nice help.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137655">meowman9000</a> — Sat Apr 02, 2016 4:18 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[raingloom]]></name></author>
+<updated>2016-04-02T02:13:23</updated>
+<published>2016-04-02T02:13:23</published>
+<id>http://love2d.org/forums/viewtopic.php?t=79997&amp;p=197084#p197084</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=79997&amp;p=197084#p197084"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [MMORPG] Forest Tale v0.3.1 - &quot;That aint no tea leaf&quot;]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=79997&amp;p=197084#p197084"><![CDATA[
+Wanted to try it but the server seems down.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136553">raingloom</a> — Sat Apr 02, 2016 2:13 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[endlesstravel]]></name></author>
+<updated>2016-04-02T00:50:34</updated>
+<published>2016-04-02T00:50:34</published>
+<id>http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197083#p197083</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197083#p197083"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [library] gamera - A camera system for LÖVE - v1.0.1 is out]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197083#p197083"><![CDATA[
+<blockquote><div><cite>kikito wrote:</cite><br />@endlesstravel: you forgot to include the zip file. It's also more convenient for every one if you make a .love file instead of a zip (please try that it works before uploading). Finally, it would really help if you explained in detail what was confusing you. If you just say &quot;I came across confuse things&quot; it is probable that no one will help you. Make a list of what you expected, what did you get instead, and what have you tried.<br /></div></blockquote><br />Oh, It maybe lost link when I submit it from draft. Thank you for reminding. I'm already upload it again.<br />My English is not very good , but I am working on it .<br /><br />Thing goes like this: <br />I want make two viewport on my game to show the same map. And, the first one draw on left , seconde one draw on right.<br />I use the same gamera object draw twice in function &quot;love.draw&quot;.<br />But, left windows can't move to top left corner.<br />One the other hand , if I add &quot;else&quot; in line 58, left viewport is ok which just drawing one viewport one the game window.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137731">endlesstravel</a> — Sat Apr 02, 2016 12:50 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Sulunia]]></name></author>
+<updated>2016-04-01T20:41:10</updated>
+<published>2016-04-01T20:41:10</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197078#p197078</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197078#p197078"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197078#p197078"><![CDATA[
+Well, it's simple but solid. I liked it.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137702">Sulunia</a> — Fri Apr 01, 2016 8:41 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[anastasiaorosegirl]]></name></author>
+<updated>2016-04-01T20:20:41</updated>
+<published>2016-04-01T20:20:41</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197076#p197076</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197076#p197076"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197076#p197076"><![CDATA[
+Thanks! are the controls listed somewhere?<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137715">anastasiaorosegirl</a> — Fri Apr 01, 2016 8:20 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[whitebear]]></name></author>
+<updated>2016-04-01T19:56:21</updated>
+<published>2016-04-01T19:56:21</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197075#p197075</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197075#p197075"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197075#p197075"><![CDATA[
+M to change/disable the music.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=472">whitebear</a> — Fri Apr 01, 2016 7:56 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[anastasiaorosegirl]]></name></author>
+<updated>2016-04-01T19:43:47</updated>
+<published>2016-04-01T19:43:47</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197073#p197073</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197073#p197073"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197073#p197073"><![CDATA[
+It's a pretty solid version of Tetris, and I've only experienced a few slow downs here and there. The biggest problem I feel is the music, it's really bad. Otherwise, this is a decent effort, even in terms of semi-troll submissions. I'd honestly play more if the music wasn't so bad.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137715">anastasiaorosegirl</a> — Fri Apr 01, 2016 7:43 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Ulydev]]></name></author>
+<updated>2016-04-01T19:08:50</updated>
+<published>2016-04-01T19:08:50</published>
+<id>http://love2d.org/forums/viewtopic.php?t=80738&amp;p=197069#p197069</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=80738&amp;p=197069#p197069"/>
+<title type="html"><![CDATA[Projects and Demos • Re: push: a resolution-handling library]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=80738&amp;p=197069#p197069"><![CDATA[
+Hello there!<br /><br />With the Lowrez Jam coming up, I just couldn't ignore the opportunity to add a simple low-resolution example to <strong>push</strong>.<br /><br /><img src="https://media.giphy.com/media/xTb1RycLHeAOPDownu/giphy.gif" class="postimage" alt="Image" /><br /><br />-Fixed push:toGame()<br />-Added push:getDimensions(), push:getWidth() and push:getHeight()<br /><br /><!-- m --><a class="postlink" href="https://github.com/Ulydev/push">https://github.com/Ulydev/push</a><!-- m --><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135889">Ulydev</a> — Fri Apr 01, 2016 7:08 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[whitebear]]></name></author>
+<updated>2016-04-01T18:47:35</updated>
+<published>2016-04-01T18:47:35</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197068#p197068</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197068#p197068"/>
+<title type="html"><![CDATA[Projects and Demos • Lovely Tetromino]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82041&amp;p=197068#p197068"><![CDATA[
+I two days ago found my self programming Tetris™ clone with Löve. Today I noticed that the MiniLD #66 was open for submissions. Decided to semi-troll.<br />Anyway. Here is my first proper game made with löve using object oriented methods. Next I plan to take it to bit different direction but decided to finish up proper clone first.<br />You can either follow path of LudumDare or grab the *.love file down bellow.<br /><a href="http://ludumdare.com/compo/minild-66/?action=preview&amp;uid=60315" class="postlink">http://ludumdare.com/compo/minild-66/?action=preview&amp;uid=60315</a><br /><div class="inline-attachment"><dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="http://love2d.org/forums/download/file.php?id=12977&amp;sid=5f4a8e219900f7fbc53abaa58f608155">LovelyTetromino.love</a></dt></dl></div><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=472">whitebear</a> — Fri Apr 01, 2016 6:47 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[TheRedRaccoon]]></name></author>
+<updated>2016-04-01T16:40:14</updated>
+<published>2016-04-01T16:40:14</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197066#p197066</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197066#p197066"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [lib] maid64 - square low resolution system]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197066#p197066"><![CDATA[
+<blockquote><div><cite>adekto wrote:</cite><br />pixelated font, hopfully its readeble (have to test it still)<br /><br /><div class="inline-attachment"><!-- ia0 -->lowfontA.png<!-- ia0 --></div><br /><br /><div class="codebox"><p>Code: </p><code>pixelfont = love.graphics.newImageFont(&quot;lowfontA.png&quot;,<br />    &quot; abcdefghijklmnopqrstuvwxyz&quot; ..<br />    &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ0&quot; ..<br />    &quot;123456789.,!?-+/():;%&amp;`'*#=&#91;&#93;\&quot;&quot;)</code></div><br /></div></blockquote><br /><br />Skipped the letter 'N', other than that, it works<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137577">TheRedRaccoon</a> — Fri Apr 01, 2016 4:40 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[kikito]]></name></author>
+<updated>2016-04-01T15:22:39</updated>
+<published>2016-04-01T15:22:39</published>
+<id>http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197062#p197062</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197062#p197062"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [library] gamera - A camera system for LÖVE - v1.0.1 is out]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197062#p197062"><![CDATA[
+@endlesstravel: you forgot to include the zip file. It's also more convenient for every one if you make a .love file instead of a zip (please try that it works before uploading). Finally, it would really help if you explained in detail what was confusing you. If you just say &quot;I came across confuse things&quot; it is probable that no one will help you. Make a list of what you expected, what did you get instead, and what have you tried.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=710">kikito</a> — Fri Apr 01, 2016 3:22 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[endlesstravel]]></name></author>
+<updated>2016-04-02T00:59:48</updated>
+<published>2016-04-01T14:47:09</published>
+<id>http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197061#p197061</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197061#p197061"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [library] gamera - A camera system for LÖVE - v1.0.1 is out]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=12033&amp;p=197061#p197061"><![CDATA[
+gamera.lua is reall greate camera system and I'm so gald to know it update !<br />However, I am come acorss a confuse things in my game.<br /><div class="inline-attachment"><dl class="file"><dt class="attach-image"><img src="http://love2d.org/forums/download/file.php?id=12984&amp;sid=5f4a8e219900f7fbc53abaa58f608155" class="postimage" alt="show.gif" onclick="viewableArea(this);" /></dt></dl></div><br />So, I'm extract code snippet to build a &quot;.love&quot; file and record it below.<br /><div class="inline-attachment"><dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="http://love2d.org/forums/download/file.php?id=12983&amp;sid=5f4a8e219900f7fbc53abaa58f608155">gameraTest.love</a></dt></dl></div><br /><br /><span style="text-decoration: underline">Runtime environment : love-0.10.1-win32</span><br />Thing goes like this: <br />I want make two viewport on my game to show the same map. And, the first one draw on left , seconde one draw on right.<br />I use the same gamera object draw twice in function &quot;love.draw&quot;.<br />But, left windows can't move to top left corner.<br />One the other hand , if I add &quot;else&quot; in line 58, left viewport is ok which just drawing one viewport one the game window.<br /><br />Ps: If I modify the code &quot;cam:setScale(2)&quot; in line 56 to a large number, camera position will far away form position (0, 0) to lower right corner<br /><br />it maybe a bug or just a case of using the wrong code.<br />I con't figure it out.<br />May be some one can tall me what happend if it's convenient.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137731">endlesstravel</a> — Fri Apr 01, 2016 2:47 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[modog]]></name></author>
+<updated>2016-04-01T13:54:41</updated>
+<published>2016-04-01T13:54:41</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81949&amp;p=197059#p197059</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81949&amp;p=197059#p197059"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Divefrog early Beta]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81949&amp;p=197059#p197059"><![CDATA[
+How i dont saw that? The game good, the thing I most liked in the game, it's  a dificult game. Really fun game, but you<br />can adding some things to your project: A story mode, variation of special moviments, maybe redesign the characters, scenes<br />and graphics parts(if you want some help, I'm here). <br /><br />The game is pretty fun and hard challenge, congrats. You have an ideia what you want add to your project? Tell for us!<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137716">modog</a> — Fri Apr 01, 2016 1:54 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[MadByte]]></name></author>
+<updated>2016-04-01T09:45:01</updated>
+<published>2016-04-01T09:45:01</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81964&amp;p=197057#p197057</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81964&amp;p=197057#p197057"/>
+<title type="html"><![CDATA[Projects and Demos • Re: AirTaxi [WIP]]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81964&amp;p=197057#p197057"><![CDATA[
+<blockquote><div><cite>qubodup wrote:</cite><br />Cute! I was confused by the landing gear at first and physics felt weird while recording after a while but perhaps that's just general system slowdown (or Chrome compensating by slowing down WebGL first? hm).<br /></div></blockquote><br />Thanks for testing it. <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><br />I don't have any slowdown problems on my system (using Chrome as well), I'll look into it.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=116409">MadByte</a> — Fri Apr 01, 2016 9:45 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[modog]]></name></author>
+<updated>2016-04-01T08:10:56</updated>
+<published>2016-04-01T08:10:56</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81901&amp;p=197055#p197055</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81901&amp;p=197055#p197055"/>
+<title type="html"><![CDATA[Projects and Demos • Re: Spanky Butt]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81901&amp;p=197055#p197055"><![CDATA[
+I agree with Ivan says, but I laugh much.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137716">modog</a> — Fri Apr 01, 2016 8:10 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[qubodup]]></name></author>
+<updated>2016-04-02T05:47:07</updated>
+<published>2016-04-01T06:19:39</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197052#p197052</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197052#p197052"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [lib] maid64 - square low resolution system]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82034&amp;p=197052#p197052"><![CDATA[
+Set minwidth=64, minheight=64 in main.lua:5 for the real deal. <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><br /><br /><div class="inline-attachment"><dl class="file"><dt class="attach-image"><img src="http://love2d.org/forums/download/file.php?id=12973&amp;sid=5f4a8e219900f7fbc53abaa58f608155" class="postimage" alt="maid64.gif" onclick="viewableArea(this);" /></dt></dl></div><br /><br /> <strong>iframe</strong> <br /><!-- m --><a class="postlink" href="https://www.youtube.com/watch?v=XUteFZH2tIg">https://www.youtube.com/watch?v=XUteFZH2tIg</a><!-- m --><br /><br />Looking forward to #lowrezjam!<br /><br />EDIT:<br /><br />I combined maid64 and love3d. It kind of works...<br /><br /> <strong>iframe</strong> <br /><!-- m --><a class="postlink" href="https://youtu.be/Hn5fz1oHTTA">https://youtu.be/Hn5fz1oHTTA</a><!-- m --><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=83">qubodup</a> — Fri Apr 01, 2016 6:19 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[TheZombieKiller]]></name></author>
+<updated>2016-04-01T05:43:09</updated>
+<published>2016-04-01T05:43:09</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82027&amp;p=197051#p197051</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82027&amp;p=197051#p197051"/>
+<title type="html"><![CDATA[Projects and Demos • Re: [Lib] Classy - a C++ esque class and struct implementation]]></title>
+
+<category term="Projects and Demos" scheme="http://love2d.org/forums/viewforum.php?f=5" label="Projects and Demos"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82027&amp;p=197051#p197051"><![CDATA[
+Overhauled the inheritance functionality, it is now used like this:<br /><br /><div class="codebox"><p>Code: </p><code>class &quot;ExampleClass&quot;<br />{<br />   -- Class constructor<br />   ExampleClass = function(self)<br />      print &quot;Hello, world!&quot;<br />   end;<br />   <br />   -- Sample method<br />   MyMethod = function(self)<br />      print &quot;ExampleClass MyMethod&quot;<br />   end;<br />}<br /><br />class &quot;InheritanceExample&quot; : ExampleClass<br />{<br />   -- Inherits all methods (including constructor) from ExampleClass<br />   <br />   MyMethod = function(self)<br />      print &quot;InheritanceExample MyMethod&quot;<br />   end;<br />}</code></div><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137303">TheZombieKiller</a> — Fri Apr 01, 2016 5:43 am</p><hr />
+]]></content>
+</entry>
+</feed>

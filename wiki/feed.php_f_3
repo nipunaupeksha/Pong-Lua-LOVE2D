@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-gb">
+<link rel="self" type="application/atom+xml" href="http://love2d.org/forums/feed.php?f=3" />
+
+<title>LÖVE</title>
+<link href="http://love2d.org/forums/index.php" />
+<updated>2016-04-02T21:50:53</updated>
+
+<author><name><![CDATA[LÖVE]]></name></author>
+<id>http://love2d.org/forums/feed.php?f=3</id>
+<entry>
+<author><name><![CDATA[ZBoyer1000]]></name></author>
+<updated>2016-04-02T21:50:53</updated>
+<published>2016-04-02T21:50:53</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82046&amp;p=197112#p197112</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82046&amp;p=197112#p197112"/>
+<title type="html"><![CDATA[General • Mini Functions Repository]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82046&amp;p=197112#p197112"><![CDATA[
+I thought it would be neat to create a place where people could post small functions that can do useful things and possibly help other people's projects.  <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-glad.png" alt=":D" title="Very Happy" /> <br /> <br />Here is a function I created that could help create game clocks:<br /><blockquote class="uncited"><div><br />gameClocks = {}<br />function clock(name, time)<br />index = 0<br /> for i = 1,#gameClocks do<br />   if gameClocks[i][1] == tostring(name) then<br /> index = i<br />   end<br /> end<br /> if index == 0 then<br />   local clock = {tostring(name), num = 0}<br />   table.insert(gameClocks, clock)<br /> elseif index ~= 0 then<br />   gameClocks[index].num = gameClocks[index].num + 1<br />   if gameClocks[index].num &gt;= time then gameClocks[index].num = 0 return true end<br /> end<br />end<br /></div></blockquote><br />Here is an example for it:  <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-surprised2.png" alt=":o:" title="Oh" /> <br />l = 0<br />z = 0<br />function love.update(dt)<br /> if clock(&quot;LClock&quot;, 20) == true then  <br /> l = l + 1 <br /> end<br /> if clock(&quot;ZClock&quot;, 1) == true then  <br /> z = z + 1 <br /> end<br /> love.graphics.print(tostring(z) .. &quot; : &quot; .. tostring(l))<br />end<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137266">ZBoyer1000</a> — Sat Apr 02, 2016 9:50 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Mateus]]></name></author>
+<updated>2016-04-02T20:48:08</updated>
+<published>2016-04-02T20:48:08</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82045&amp;p=197108#p197108</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82045&amp;p=197108#p197108"/>
+<title type="html"><![CDATA[General • Please answer a quick form.]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82045&amp;p=197108#p197108"><![CDATA[
+Hello, I hope I don't break any rules. I had lot of troubles figuring out how to build easily for android API 10 or lower/higher.<br /><br />Just to be sure I made a quick form and I would really apreciate if you could answer. THANKS A LOT!<br /><br /><a href="http://goo.gl/forms/bXGN51QEGA" class="postlink">http://goo.gl/forms/bXGN51QEGA</a><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136502">Mateus</a> — Sat Apr 02, 2016 8:48 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[airstruck]]></name></author>
+<updated>2016-04-02T19:58:10</updated>
+<published>2016-04-02T19:58:10</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197106#p197106</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197106#p197106"/>
+<title type="html"><![CDATA[General • Re: How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197106#p197106"><![CDATA[
+<blockquote><div><cite>Kingdaro wrote:</cite><br />It seems like the best thing you can do is just give an example of how its used. I think the examples in the docs are good enough to give a good picture.<br /></div></blockquote><br /><br />Examples are pretty important for something like this, I agree. I want anyone looking at it to be able to immediately figure out what it's for. It might be alright with a few more examples.<br /><br /><blockquote><div><cite>ivan wrote:</cite><br />I strongly believe that having trouble naming functions or documenting them, is a sign that something is wrong with the code.<br /></div></blockquote><br /><br />The two internal functions only have names because they refer to themselves and each other. The names aren't part of the API; the user doesn't have to deal with remembering any names, only function signatures.<br /><br />The first internal function is never exposed, so there's no reason to have user-facing documentation for it. The second is returned by the &quot;chain factory&quot; and by &quot;chain instances.&quot; It represents a &quot;chain instance&quot; itself, and it's named &quot;chain&quot; internally. I'm open to suggestions for better names for things, but this really doesn't seem that bad to me.<br /><br /><blockquote><div><cite>ivan wrote:</cite><br />Also, please note that you have to be careful when using &quot;local function&quot; and &quot;return function&quot; because these have their own scope which is a strain on the GC [...] For example, &quot;local links = nil&quot; could be the first line, since &quot;links&quot; is used in all of your functions.<br /></div></blockquote><br /><br />The closure is there for a reason. The internal functions operate on the &quot;links&quot; table defined by the &quot;chain factory&quot; function exposed by the module. If &quot;links&quot; were moved out of the closure, you'd have all chains sharing one set of links, instead of each chain having its own links. This wouldn't give the desired behavior.<br /><br />The functions could be moved out of the closure and could accept &quot;links&quot; as a parameter instead (procedural approach), except that the user never has access to &quot;links&quot; and wouldn't be able to pass them in when executing the chain. Even if they could, I don't think this API would be very pleasant.<br /><br />The other option would be an OO approach, essentially attaching the user-facing function to the table and returning that table instead of just returning a function in a closure (as Kingdaro hinted at). The API could actually stay the same with __call, but the &quot;links&quot; table is exposed which I don't really want. It's supposed to be immutable except through that user-facing function, which is why it's created from varargs in the first place instead of letting the user pass in a table that they'd have a handle to and could mess with later.<br /><br />In any case, I'm not convinced that the OO approach really has any benefit over closures in this case. I'd be interested in seeing a performance test, though.  <br /><br /><blockquote><div><cite>substitute541 wrote:</cite><br />Here's an inline documentation example<br /></div></blockquote><br /><br />Thanks, I'll run that through Ldoc later and see what happens. In the past I've had trouble getting Ldoc to do anything useful with annotations on internal stuff. Just looking at it, I'm wondering if the only thing that will show up is the very first annotation for &quot;chain factory&quot;.<br /><br /><blockquote><div><cite>substitute541 wrote:</cite><br />I also suggest refactoring the code and/or finding a different way to do this thing. It's incredibly confusing.<br /></div></blockquote><br /><br />I'm open to concrete, viable suggestions on refactoring it. The way it's done now is the simplest way I can think of to do it. If you can think of a simpler or clearer way, I'd be happy to use that instead.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136704">airstruck</a> — Sat Apr 02, 2016 7:58 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Kingdaro]]></name></author>
+<updated>2016-04-02T18:48:55</updated>
+<published>2016-04-02T18:48:55</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197104#p197104</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197104#p197104"/>
+<title type="html"><![CDATA[General • Re: How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197104#p197104"><![CDATA[
+<blockquote><div><cite>ivan wrote:</cite><br />I strongly believe that having trouble naming functions or documenting them, is a sign that something is wrong with the code.<br /></div></blockquote><br />A super good point, something a lot of people tend to miss, including myself! Though I can't really think of any better way for the library to work, other than the common &quot;instance = module.new()&quot; and &quot;instance:stuff()&quot; methods, which would probably just make it look a little bloated in use.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=1297">Kingdaro</a> — Sat Apr 02, 2016 6:48 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Tricky]]></name></author>
+<updated>2016-04-02T15:23:51</updated>
+<published>2016-04-02T15:23:51</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81969&amp;p=197101#p197101</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81969&amp;p=197101#p197101"/>
+<title type="html"><![CDATA[General • Re: Where and how did you start?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81969&amp;p=197101#p197101"><![CDATA[
+I learned about Lua as a World of Warcraft player, since all its addons are merely Lua scripts.<br />The language I used (BlitzMax) had a Lua module and I started to study it. I came up with <a href="http://gamejolt.com/games/war-in-space-all-around-the-moon/19201" class="postlink">War in Space - All Around The Moon</a> in order to study the possibilities of Lua a bit more. It was never a serious project, but an experiment, but hey, maybe you like the game anyway, as I didn't really throw it, you know <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-wink.png" alt=";)" title="Wink" /><br /><br />A really serious project with Lua came when I created <a href="http://gamejolt.com/games/the-secrets-of-dyrt/20688" class="postlink">The Secrets of Dyrt</a>. I just wanted to make an RPG again, and up until now I only had to reply on my own (crappy) scripting languages I didn't even care to give a name. <br /><br />During my time at GameJolt I heard somebody complain about Love2D being too &quot;low level&quot;, but that was actually something I liked. The two games above I mentioned are not exactly lightwight, and getting them to work on Linux, well they should both work with wine, but a true Linux version was just major hell. I was looking to a good Lua based engine for my smaller projects, and that complaint was just telling me Love2D could be what I was looking for. <br /><br />I'm now working to create a puzzle game, which is actually a remake of an older concept of mine, but perfect to get into the deep of Love2D. And I guess this will also be the first game of mine with an actual &quot;Linux version&quot;. The only thing I miss in Love is the support for the &quot;archiving&quot; system I used (and I can't expect it to, as I set up that system myself), as it grants me a lot of possibilities zip doesn't offer. Well, we can't have EVERYTHING, I guess.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136060">Tricky</a> — Sat Apr 02, 2016 3:23 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[fixylol]]></name></author>
+<updated>2016-04-02T14:58:58</updated>
+<published>2016-04-02T14:58:58</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81969&amp;p=197099#p197099</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81969&amp;p=197099#p197099"/>
+<title type="html"><![CDATA[General • Re: Where and how did you start?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81969&amp;p=197099#p197099"><![CDATA[
+my first experience with lua was on a game engine(ish) called &quot;ROBLOX&quot;. however, their engine was very restricted (audio can only be 2 minutes long and you have to pay to upload it, images need to be approved, etc) and pretty laggy, so i decided to look for other engines that use lua. i then stumbled upon love2d. i'm currently working on my first project, a recreation of a game made in stagecast creator called awedd.sim (<a href="https://www.youtube.com/watch?v=crWQ42PePHE" class="postlink">https://www.youtube.com/watch?v=crWQ42PePHE</a>).<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137590">fixylol</a> — Sat Apr 02, 2016 2:58 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[fixylol]]></name></author>
+<updated>2016-04-02T14:46:59</updated>
+<published>2016-04-02T14:46:59</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82042&amp;p=197098#p197098</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82042&amp;p=197098#p197098"/>
+<title type="html"><![CDATA[General • love is planning world domination]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82042&amp;p=197098#p197098"><![CDATA[
+just think about it:<br />if you mouse over love.exe or love.dll, it says the company is &quot;LOVE World Domination Inc.&quot;<br />almost every built-in function/callback/table in love is under the table &quot;love&quot;<br />one of the admins encouraged putting &quot;obey&quot; in the user avatars<br /><br />it is only a matter of time before love takes over the entire world with its cute art and easy to learn scripting...<br /><br />not enough? take a look at this:<br /><br />love is a 2d engine.<br /><br />love uses lua.<br /><br />lua has 3 letters.<br /><br />a triangle in 2d has 3 sides...<br /><br />oh my god...<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137590">fixylol</a> — Sat Apr 02, 2016 2:46 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[mr_happy]]></name></author>
+<updated>2016-04-02T14:36:25</updated>
+<published>2016-04-02T14:36:25</published>
+<id>http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197097#p197097</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197097#p197097"/>
+<title type="html"><![CDATA[General • Re: Text adventures &amp; state machines (a newb approaches!)]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197097#p197097"><![CDATA[
+<blockquote><div><cite>Rucikir wrote:</cite><br />There's a good read imo <a href="http://gameprogrammingpatterns.com/" class="postlink">Game Programming Patterns</a>. It has a chapter on <a href="http://gameprogrammingpatterns.com/state.html" class="postlink">State Machines</a> with drawings, explanations on where and why use them, and code examples.<br /></div></blockquote><br /><br />That's a handy link - thanks! <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-glad.png" alt=":D" title="Very Happy" /><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137691">mr_happy</a> — Sat Apr 02, 2016 2:36 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Rucikir]]></name></author>
+<updated>2016-04-02T08:14:46</updated>
+<published>2016-04-02T08:14:46</published>
+<id>http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197090#p197090</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197090#p197090"/>
+<title type="html"><![CDATA[General • Re: Text adventures &amp; state machines (a newb approaches!)]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197090#p197090"><![CDATA[
+There's a good read imo <a href="http://gameprogrammingpatterns.com/" class="postlink">Game Programming Patterns</a>. It has a chapter on <a href="http://gameprogrammingpatterns.com/state.html" class="postlink">State Machines</a> with drawings, explanations on where and why use them, and code examples.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=134234">Rucikir</a> — Sat Apr 02, 2016 8:14 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[substitute541]]></name></author>
+<updated>2016-04-02T07:17:39</updated>
+<published>2016-04-02T07:17:39</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197089#p197089</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197089#p197089"/>
+<title type="html"><![CDATA[General • Re: How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197089#p197089"><![CDATA[
+Here's an inline documentation example (after spending a while trying to understand the code) :<br /><br /><div class="codebox"><p>Code: </p><code><br />--- Chain factory<br />--<br />-- Given zero or more *link* functions, it returns a callable Chain instance.<br />--<br />-- @param function... Zero or more link functions.<br />--<br />-- @return function A Chain instance.<br />return function (...)<br />   local links = { ... }<br /><br />   --- Invoker submodule<br />   --<br />   -- @access private<br />   --<br />   -- @param index The location on where start running along the chain.<br />   -- @return function A callable Invoker object.<br />   local function Invoker(index)<br /><br />      --- Invoker object<br />      --<br />      -- Runs a link function.<br />      --<br />      -- Each link must have a first argument that takes a callback function<br />      -- `go`. Calling this function will run the next link in the chain.<br />      --<br />      -- A link may return another Chain instance instead of calling `go`. In<br />      -- this case, the next link (if any) will be appended to the returned<br />      -- Chain instance. This allows for the creation of APIs with functions<br />      -- that return chains rather than accepting callbacks.<br />      --<br />      -- A link should either call the callback function `go`, or return a<br />      -- Chain instance. It should not do both.<br />      --<br />      -- @see chain<br />      --<br />      -- @class function<br />      -- @name invoker<br />      --<br />      -- @param mixed... Extra link arguments. This can be passed by either<br />      --                 the previous link, or in the case of the first link,<br />      --                 by the Chain instance.<br />      return function (...)<br />         local link = links&#91;index&#93;<br /><br />         if not link then<br />            return<br />         end<br /><br />         local go = Invoker(index + 1)<br />         local returned = link(go, ...)<br /><br />         if returned then<br />            returned(function (_, ...) go(...) end)<br />         end<br />      end<br />   end<br /><br />   --- Chain object<br />   --<br />   -- Given several link functions, returns a new Chain instance with the link<br />   -- functions appended to the chain.<br />   --<br />   -- @class function<br />   -- @name chain<br />   --<br />   -- @param function... Link functions.<br />   -- @return function A new Chain instance, with the link functions appended<br />   --                  to the list.<br /><br />   --- Chain object<br />   --<br />   -- Run the chain links. If passed with an initial `nil` argument, the<br />   -- subsequent arguments are passed into the first link.<br />   --<br />   -- @usage<br />   --     new_chain = Chain(<br />   --         function (go, foo)<br />   --             print foo<br />   --             go('Hello Lua')<br />   --         end,<br />   --         function (go, bar)<br />   --             print bar<br />   --             go()<br />   --         end,<br />   --         function (go)<br />   --             print 'link 3'<br />   --             go()<br />   --         end,<br />   --     )<br />   --     new_chain(nil, 'Hello World') -- &gt;&gt;&gt; Hello World<br />   --                                   --   | Hello Lua<br />   --<br />   -- @class function<br />   -- @name chain<br />   --<br />   -- @param nil|mixed... Optional. An initial `nil` value, followed by the<br />   --                     extra arguments.<br /><br />   local function chain(...)<br />      if not (...) then<br />         return Invoker(1)(select(2, ...))<br />      end<br /><br />      local offset = #links<br /><br />      for index = 1, select('#', ...) do<br />         links&#91;offset + index&#93; = select(index, ...)<br />      end<br /><br />      return chain<br />   end<br /><br />   return chain<br />end<br /><br /></code></div><br /><br />Edit: going on what @ivan says, I also suggest refactoring the code and/or finding a different way to do this thing. It's incredibly confusing.<br /><br />Edit 2: There may be some <em>minor</em> errors. I suggest giving it a review if you plan on using this.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=63719">substitute541</a> — Sat Apr 02, 2016 7:17 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[ivan]]></name></author>
+<updated>2016-04-02T06:25:17</updated>
+<published>2016-04-02T06:25:17</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197087#p197087</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197087#p197087"/>
+<title type="html"><![CDATA[General • Re: How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197087#p197087"><![CDATA[
+Hi there.<br />I strongly believe that having trouble naming functions or documenting them, is a sign that something is wrong with the code.<br />Looking at the code, I have a hard time figuring out what's going on, which doesn't matter right now, but it suggests that if you come back to this code yourself in a few months - you'll be scratching your head too.<br />Also, please note that you have to be careful when using &quot;local function&quot; and &quot;return function&quot; because these have their own scope which is a strain on the GC (edit: either that or affects the stack size - I have to look into it).<br />Not sure how often the code is executed, but it may affect performance and memory usage.<br />There are simple ways to avoid &quot;local function&quot; and &quot;return function&quot;.<br />For example, &quot;local links = nil&quot; could be the first line, since &quot;links&quot; is used in all of your functions.<br />Then I would move &quot;chain&quot; and &quot;Invoker&quot; outside of the returned function too.<br />Good luck. <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=69">ivan</a> — Sat Apr 02, 2016 6:25 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Kingdaro]]></name></author>
+<updated>2016-04-01T22:44:17</updated>
+<published>2016-04-01T22:44:17</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197080#p197080</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197080#p197080"/>
+<title type="html"><![CDATA[General • Re: How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197080#p197080"><![CDATA[
+It seems like the best thing you can do is just give an example of how its used. I think the examples in the docs are good enough to give a good picture.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=1297">Kingdaro</a> — Fri Apr 01, 2016 10:44 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[mr_happy]]></name></author>
+<updated>2016-04-01T14:27:40</updated>
+<published>2016-04-01T14:27:40</published>
+<id>http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197060#p197060</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197060#p197060"/>
+<title type="html"><![CDATA[General • Re:]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=8633&amp;p=197060#p197060"><![CDATA[
+For anyone that needs this necro-revival:<br /><br /><blockquote><div><cite>a neobum wrote:</cite><br />That much I gathered and I was told that it's far from a smooth implementation. But I was hoping somebody would walk me through the process; function by function and explain what's doing what to what, in what order, why things are where they are and so on. Yes, folks, I'm really that thick.<br /></div></blockquote><br /><br />This is a very simple state machine set-up and might help, especially as it consists of very few lines of code! This code goes in main.lua and needs two other files, 'menu.lua' and 'options.lua', representing the stuff that goes on in the main menu and the options screen of a game (in reality you'd have a bunch of other states such a 'playing' or 'game over' or whatever.<br /><br />I've created a table called states{}, holding the two possible states, and a variable called state. In essence all that happens is some substitution in the love.update() and love.draw() functions. <br /><br />The file menu.lua has an update() function and a draw() function and the file options.lua also has its own update() and draw() functions - which gets called depends simply upon the value of the 'state' variable.<br /><br /><div class="codebox"><p>Code: </p><code><br />local menuModule = require(&quot;menu&quot;)<br />local optionsModule = require(&quot;options&quot;)<br /><br />-- some states<br />local states = {<br />    &#91;&quot;menu&quot;&#93; = menuModule,<br />    &#91;&quot;options&quot;&#93; = optionModule<br />}<br /><br />-- set the initial game state to states&#91;&quot;menu&quot;&#93; which has the value 'menuModule' in the above table<br />-- it's easier to type 'states.menu' than states&#91;&quot;menu&quot;&#93; so that's what I've done here:<br />local state = states.menu<br />-- the state variable now holds the value 'menuModule'<br /><br />-- in the standard love.update() callback function...<br />function love.update(dt)<br /><br />   -- call the update function for the current state <br />   state.update(dt)<br />   -- so in our case the above line acts as though it was written menuModule.update(dt)<br />   -- and as a result, the function update(dt) in the file 'menu.lua' gets called<br />   -- if the current state was set to state.options then the above line would be interpreted as optionModule.update(dt) and<br />   -- update(dt) in 'options.lua' would be called instead<br />end<br /><br /><br />-- in the standard love.draw() callback function...<br />function love.draw() <br />    -- this works in the same way as the update function above<br />    -- so in our case it will call menuModule.draw()<br />    state.draw()<br />    -- if the current state was set to state.options then the above line would be interpreted as optionModule.draw() and<br />    -- draw() in the file 'options.lua' would be called    <br />end<br /><br />function love.keypressed(k)<br />   -- this would work in the same way as the two functions above so I'm not going to type it all out again :P<br />end<br /><br />end<br /></code></div><br /><br />Using this scheme you can create whatever states you need and keep the code for each state in its own file. How to change states? Well in the menu.lua file foer example, you'll have some code that detects when the user chooses to start a game and you change the state from 'menu' to 'playing'. Hope that helps - I don't suppose it's the best method but it seems not too hard to figure out IMHO.<br /><br />Errors and omissions excepted!<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137691">mr_happy</a> — Fri Apr 01, 2016 2:27 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[airstruck]]></name></author>
+<updated>2016-03-31T19:44:43</updated>
+<published>2016-03-31T19:44:43</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197035#p197035</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197035#p197035"/>
+<title type="html"><![CDATA[General • How to document an &quot;unusual&quot; API?]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82036&amp;p=197035#p197035"><![CDATA[
+I've been making a few changes to a <a href="https://github.com/airstruck/knife/blob/master/knife/chain.lua" class="postlink">module</a> containing a small utility function. The function is fairly simple, and the behavior is fairly straightforward. I'm having a hard time with the <a href="https://github.com/airstruck/knife/blob/master/readme/chain.md" class="postlink">documentation</a>, though. I'm never quite sure how to handle formal documentation for anything that doesn't line up neatly with procedural or OO paradigms.<br /><br />In particular, the function exposed by the module takes user-defined functions as its parameters, it passes generated functions into those UDFs to be invoked by the user, and returns yet another function. There are a lot of anonymous functions to document, basically. Actual use is very simple, but the documentation makes it look complicated.<br /><br />Does anyone have any tips on how to write decent documentation for this kind of thing?<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136704">airstruck</a> — Thu Mar 31, 2016 7:44 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Eric Matyas]]></name></author>
+<updated>2016-03-31T03:48:07</updated>
+<published>2016-03-31T03:48:07</published>
+<id>http://love2d.org/forums/viewtopic.php?t=78605&amp;p=197000#p197000</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=78605&amp;p=197000#p197000"/>
+<title type="html"><![CDATA[General • Re: Free Music Resource]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=78605&amp;p=197000#p197000"><![CDATA[
+Hi everyone,<br /><br />I've received a lot of requests for sound effects, especially from game developers, so next week I'll be opening new pages with original free sound effects. Stay tuned!<br /><br />In the meantime, all of my newest looping music tracks are on the Horror/Surreal Page:<br /><br />“Zombie Game”<br /><br />“Nightmare Freeway”<br /><br />“Sewer Monsters Town Hall Meeting”<br /><br />“Surreal Game Menu”<br /><br />“Hazy Disorientation”<br /><br />“Disturbing Chimes”<br /><br /><!-- m --><a class="postlink" href="http://soundimage.org/horrorsurreal/">http://soundimage.org/horrorsurreal/</a><!-- m --><br /><br />Daily updates, as always, are here:<br /><!-- m --><a class="postlink" href="https://twitter.com/EricMatyas">https://twitter.com/EricMatyas</a><!-- m --><br /><!-- m --><a class="postlink" href="https://www.facebook.com/soundimage.org">https://www.facebook.com/soundimage.org</a><!-- m --><br /><br />Playlists are here:<br /><!-- m --><a class="postlink" href="https://www.youtube.com/channel/UC6mnTEE6xP74YcZDpkKGy-A/playlists">https://www.youtube.com/channel/UC6mnTE ... /playlists</a><!-- m --><br /><br />Have a great weekend!<br />Eric<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135528">Eric Matyas</a> — Thu Mar 31, 2016 3:48 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[pevzi]]></name></author>
+<updated>2016-03-30T15:26:27</updated>
+<published>2016-03-30T15:26:27</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196956#p196956</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196956#p196956"/>
+<title type="html"><![CDATA[General • Re: Using coroutines to create an RPG dialogue system]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196956#p196956"><![CDATA[
+I used a similar approach in my <a href="https://github.com/pevzi/beep/blob/master/scenario.lua" class="postlink">game</a> to implement a dialogue system (was somewhat inspired by airstruck's aforementioned library by the way). Coroutines are really well-suited for this kind of task.<br />PS: if you happen to be interested, the game is not really finished yet, I'm planning to expand it and translate it into English one day.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=112054">pevzi</a> — Wed Mar 30, 2016 3:26 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Serapth]]></name></author>
+<updated>2016-03-29T20:46:57</updated>
+<published>2016-03-29T20:46:57</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81666&amp;p=196911#p196911</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81666&amp;p=196911#p196911"/>
+<title type="html"><![CDATA[General • Re: Game Development for Complete Beginners]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81666&amp;p=196911#p196911"><![CDATA[
+Next part is up<br /><br /> <strong>iframe</strong> <p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137481">Serapth</a> — Tue Mar 29, 2016 8:46 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[airstruck]]></name></author>
+<updated>2016-03-31T23:19:27</updated>
+<published>2016-03-29T05:35:38</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196885#p196885</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196885#p196885"/>
+<title type="html"><![CDATA[General • Re: Using coroutines to create an RPG dialogue system]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196885#p196885"><![CDATA[
+Interesting article. Coroutines are definitely a nice way to avoid &quot;callback hell.&quot;<br /><br /><blockquote><div><cite>geckojsc wrote:</cite><br />I was considering turning it into a library but realised there are too many parts that are specific to the game at hand<br /></div></blockquote><br /><br />For what it's worth, there are more generalized ways of &quot;flattening&quot; code with heavily nested callbacks; think promises/futures. I've experimented with two different approaches to that in Lua, one using <a href="https://github.com/airstruck/knife/blob/master/readme/chain.md" class="postlink">chained functions</a> and another using <a href="https://github.com/airstruck/knife/blob/master/readme/convoke.md" class="postlink">coroutines</a>. The coroutines solution probably won't be interesting to you, but since you asked for other solutions, here's how a chained functions version of your nested callback example could look.<br /><br /><div class="codebox"><p>Code: </p><code>Chain(<br />    function (go)<br />        say(&quot;Hello there!&quot;, go)<br />    end,<br />    function (go)<br />        say(&quot;How's it going?&quot;, go)<br />    end,<br />    function (go)<br />        say(&quot;Well, nice talking to you&quot;, go)<br />    end<br />)()</code></div><br /><br />It's hairy, but the code is &quot;flat&quot; instead of nesting deeper and deeper, and it can be cleaned up pretty nicely with a <a href="https://github.com/airstruck/knife/blob/master/readme/bind.md" class="postlink">bind</a> function (as in Boost or JS bind).<br /><br /><div class="codebox"><p>Code: </p><code>Chain(<br />    Bind(say, &quot;Hello there!&quot;),<br />    Bind(say, &quot;How's it going?&quot;),<br />    Bind(say, &quot;Well, nice talking to you&quot;)<br />)()</code></div><br /><br />Or, if that still feels like too much redundancy,<br /><br /><div class="codebox"><p>Code: </p><code>local function S (phrase) return Bind(say, phrase) end<br /><br />Chain(<br />    S &quot;Hello there!&quot;,<br />    S &quot;How's it going?&quot;,<br />    S &quot;Well, nice talking to you&quot;<br />)()</code></div><br /><br />One nice thing about a generic approach like this is you can put tweens or anything else that takes a callback in the chain and keep everything flat.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136704">airstruck</a> — Tue Mar 29, 2016 5:35 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[geckojsc]]></name></author>
+<updated>2016-03-29T01:39:26</updated>
+<published>2016-03-29T01:39:26</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196880#p196880</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196880#p196880"/>
+<title type="html"><![CDATA[General • Using coroutines to create an RPG dialogue system]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82019&amp;p=196880#p196880"><![CDATA[
+Hey folks, I've been working on an RPG recently and came up with a novel solution for dialogue scripting, using coroutines and setfenv. I was considering turning it into a library but realised there are too many parts that are specific to the game at hand, so I decided to write a blog post/tutorial about it instead.<br /><br /><!-- m --><a class="postlink" href="http://blog.geckojsc.com/2016/03/using-lua-coroutines-to-create-rpg.html">http://blog.geckojsc.com/2016/03/using- ... e-rpg.html</a><!-- m --><br /><br />The main idea is that the function say(str) contains a call to coroutine.yield, so the dialogue can be written as a simple Lua script which suspends while the game displays the text and waits for the player to press OK.<br /><br />I'm wondering what people think about this approach, and whether anyone has used a similar system before, or what other solutions are available?<br /><br />Hope somebody finds it interesting/informative!<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135501">geckojsc</a> — Tue Mar 29, 2016 1:39 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Robin]]></name></author>
+<updated>2016-03-28T23:55:26</updated>
+<published>2016-03-28T23:55:26</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81989&amp;p=196874#p196874</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81989&amp;p=196874#p196874"/>
+<title type="html"><![CDATA[General • Re: I am an unfortunate victim of perfectionism.]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81989&amp;p=196874#p196874"><![CDATA[
+I know that perfectionism feel.<br /><br />Some other ideas that might work for you:<br /><br /><ul><li>Make a lot of small games. Set yourself a really short time limit for each of them so that you can't get sucked in too much with the perfectionism. Get in the habit of releasing things because you want to release them, even if they're not perfect.</li><li>Make something deliberately as bad as possible. Use globals. Leave in things that will probably cause bugs later. Make it a game to make it as bad as possible.</li><li>When you're making something, set a deadline. Before that, you can be as perfectionistic as possible. After that, you make a list of things you want to add or make or improve or whatever, and you pick three of them. You do those three things, and then you release your game.</li></ul><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=436">Robin</a> — Mon Mar 28, 2016 11:55 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[zorg]]></name></author>
+<updated>2016-03-28T22:50:51</updated>
+<published>2016-03-28T22:50:51</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196872#p196872</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196872#p196872"/>
+<title type="html"><![CDATA[General • Re: Love in C++]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196872#p196872"><![CDATA[
+Besides, if the only reason you want to code with löve in c++ is that c++ has classes, then that's kind of a bad reason. lua (and by proxy, löve) has more than enough libraries that implement classes in similar (or maybe even better?) ways.<br /><br />If you know that you want to do something that lua would be slow to do, or could not do, then there's always LuaJIT's FFI, from which you can define C-like stuff (but not C++, though someone did try to implement a C++ FFI as well, it's somewhere on github), including code, and execute it. In that direction, it's fast.<br /><br /><span style="font-size: 125%; line-height: normal">*Magical Crosspost Edit*: <a href="https://love2d.org/forums/viewtopic.php?f=5&amp;t=82027" class="postlink">This</a> might be of some use, even if it only serves as placebo <img class="smilies" src="http://love2d.org/forums/images/smilies/ms-three.png" alt=":3" title="Awww" /></span><p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=80325">zorg</a> — Mon Mar 28, 2016 10:50 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[marco.lizza]]></name></author>
+<updated>2016-03-28T19:26:43</updated>
+<published>2016-03-28T19:26:43</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196871#p196871</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196871#p196871"/>
+<title type="html"><![CDATA[General • Re: Love in C++]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196871#p196871"><![CDATA[
+<blockquote><div><cite>ZacGarby wrote:</cite><br />The point would be so it's easier to do classes.<br /></div></blockquote><br /><br />That's odd. Although Lua does not support classes right out-of-the-box, I don't feel this to be something that important. Complex class hierarchies is something far too over-hyped in the programming scene. Composition is a far better approach (which is something we already used back in the days when programming in assembly), and Lua is perfect for this.<br /><br />I do write my own C++ game-engines, but LOVE fast-and-easy prototyping is something that makes me not to regret avoiding to use C/C++ for my (smaller) projects.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137343">marco.lizza</a> — Mon Mar 28, 2016 7:26 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[bobismijnnaam]]></name></author>
+<updated>2016-03-28T19:15:15</updated>
+<published>2016-03-28T19:15:15</published>
+<id>http://love2d.org/forums/viewtopic.php?t=81989&amp;p=196870#p196870</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=81989&amp;p=196870#p196870"/>
+<title type="html"><![CDATA[General • Re: I am an unfortunate victim of perfectionism.]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=81989&amp;p=196870#p196870"><![CDATA[
+<blockquote><div><cite>MachineCode wrote:</cite><br />Design can be top-down, bottom-up, middle-out and various combinations in between.  Sometimes you can't see the big picture, so rather than banging your head, you should go down and work at the bottom or middle for a while. Any game or software project is made up of lots of parts, tools, libraries etc. They all need getting under your belt, so you need to do them sometime. Fortunately, Lua and Love2d is one of the best prototyping platforms around, so it's easy to spend a few hours and test a prototype idea. This actually fits in with the attention span problem - open lua in a terminal and load a library and poke around with it. It is instant and you actually learn a lot.<br /></div></blockquote><br /><br />I especially second the bottom-up part (at least as I understand it). A great example is Casey's/Jon's &quot;Semantic Compression&quot;: <a href="http://mollyrocket.com/casey/stream_0019.html" class="postlink">http://mollyrocket.com/casey/stream_0019.html</a>. I don't have a full grasp of it, but from what I've gathered it basically says this: Make it work, then take a step back to find patterns. If there are (and they are repeated many times, like at least 5 or 6 times), formalize them (refactor into a function/class/data/macro or some other construct). Rinse and repeat. I've tried to gamedev like this the past year and while it is not always applicable I think it manages to reduce my urge for perfectionism by promising to make it perfect later on. It's a nice balance of making things perfect on one hand and arriving at a functioning end-result on the other hand.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137685">bobismijnnaam</a> — Mon Mar 28, 2016 7:15 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[ivan]]></name></author>
+<updated>2016-03-28T14:38:35</updated>
+<published>2016-03-28T14:38:35</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196864#p196864</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196864#p196864"/>
+<title type="html"><![CDATA[General • Re: Love in C++]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196864#p196864"><![CDATA[
+Zac, once you move to C/C++ it's a whole different ballgame.<br />- No more quick prototyping - you have to rebuild every time you make a minor change.<br />- No cross platform support unless you provide a build for each target platform.<br />- No more automatic memory management and no garbage collection<br />- No more nice Lua error messages, your program will crash in much nastier ways.<br />- Programming your game logic in C/C++ will be harder and more complicated.<br />- No longer a clear separation between your game logic from the engine.<br /><br />C/C++ has a lot of cool libraries, but then you might as well export the functionality you need via something like FFI.<br />The only good reason IMO to move to C/C++ would be if you want to render things in a vastly different way than Love2D.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=69">ivan</a> — Mon Mar 28, 2016 2:38 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[ZacGarby]]></name></author>
+<updated>2016-03-28T13:24:56</updated>
+<published>2016-03-28T13:24:56</published>
+<id>http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196863#p196863</id>
+<link href="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196863#p196863"/>
+<title type="html"><![CDATA[General • Re: Love in C++]]></title>
+
+<category term="General" scheme="http://love2d.org/forums/viewforum.php?f=3" label="General"/>
+<content type="html" xml:base="http://love2d.org/forums/viewtopic.php?t=82014&amp;p=196863#p196863"><![CDATA[
+<blockquote><div><cite>marco.lizza wrote:</cite><br />What the point would be?<br /></div></blockquote><br />The point would be so it's easier to do classes.<p>Statistics: Posted by <a href="http://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137139">ZacGarby</a> — Mon Mar 28, 2016 1:24 pm</p><hr />
+]]></content>
+</entry>
+</feed>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-gb">
+<link rel="self" type="application/atom+xml" href="https://love2d.org/forums/feed.php?f=4" />
+
+<title>LÖVE</title>
+<link href="https://love2d.org/forums/index.php" />
+<updated>2016-04-02T21:19:27</updated>
+
+<author><name><![CDATA[LÖVE]]></name></author>
+<id>https://love2d.org/forums/feed.php?f=4</id>
+<entry>
+<author><name><![CDATA[pgimeno]]></name></author>
+<updated>2016-04-02T21:19:27</updated>
+<published>2016-04-02T21:19:27</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197111#p197111</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197111#p197111"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197111#p197111"><![CDATA[
+It might, but my experience with jackd has been pretty unsatisfactory in general (re setup time and getting everything back into a working state again after using it) and I'm not very motivated to test for now. I'll probably just adjust the buffer for the game and move on. Being in the low end helps anticipating what problems other users may find.<br /><br />Anyway, back to the topic, serialization/deserialization can be done with FFI like in my example, creating a pointer and accessing the data that way.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137168">pgimeno</a> — Sat Apr 02, 2016 9:19 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[airstruck]]></name></author>
+<updated>2016-04-02T21:12:24</updated>
+<published>2016-04-02T21:12:24</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197109#p197109</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197109#p197109"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197109#p197109"><![CDATA[
+<blockquote><div><cite>pgimeno wrote:</cite><br />it may have to do with PulseAudio; I've heard it has latency issues<br /></div></blockquote><br /><br />Have you tried using jackd instead of PA? I wonder if you could get lower latency that way. Either way, might help determine where the latency issue is coming from.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136704">airstruck</a> — Sat Apr 02, 2016 9:12 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[pgimeno]]></name></author>
+<updated>2016-04-02T19:46:22</updated>
+<published>2016-04-02T19:46:22</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197105#p197105</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197105#p197105"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197105#p197105"><![CDATA[
+I will also need a continuous generated sound for Thrust II Reloaded, so I have made a proof of concept of using QueueableSource and FFI to generate sound in real(ish) time. For some reason, any buffer under 0.05 seconds clicks, even if vsync is disabled (it may have to do with PulseAudio; I've heard it has latency issues) so that's the minimum latency in my case.<br /><br /><div class="codebox"><p>Code: </p><code>local ffi = require('ffi')<br />local QueueableSource = require('love-microphone.QueueableSource')<br /><br />local soundData<br />local sampleptr<br />local qs = QueueableSource:new(2)<br /><br />-- These parameters are for any application<br />local bufsize = 0.05 -- buffer size in seconds<br />local chans = 1<br />local rate = 48000<br />local nsamples = math.floor(bufsize * rate + 0.5)<br /><br />-- Our example consists of generating a continuous tone.<br />-- These parameters govern the tone's generation.<br /><br />local freq = 440<br />local invrate = 2*math.pi/rate<br />local vol = 1 -- Range 0 to 1. Unfortunately, QueueableSource lacks setVolume().<br /><br />local t, t_mod<br />local nsamp_chans = nsamples * chans<br /><br />local function fill_buf()<br />  -- We have to be extra-careful, as we're accessing raw memory and we can<br />  -- potentially cause a bad crash if we go out of bounds.<br /><br />  -- Note the FFI array uses 0 as first index, not 1.<br /><br />  t_mod = 0<br />  while t_mod &lt; nsamp_chans do<br />    local v = math.floor(math.sin(t*freq*invrate) * 32767 * vol + 0.5)<br />    for i = 1, chans do<br />      sampleptr&#91;t_mod&#93; = v<br />      t = t + 1<br />      t_mod = t_mod + 1<br />    end<br />  end<br />end<br /><br />function love.load(args)<br />  -- Test vsync on/off by commenting out or enabling this line<br />--  love.window.setMode(800, 600, {vsync=false})<br /><br />  -- Prepare our SoundData object<br />  soundData = love.sound.newSoundData(nsamples, rate, 16, chans)<br /><br />  -- Initialize FFI pointer<br />  sampleptr = ffi.new(&quot;int16_t *&quot;, soundData:getPointer())<br /><br />  -- Fill first round<br />  t = 0<br />  fill_buf()<br /><br />  qs:queue(soundData)<br />  qs:play()<br />end<br /><br />local DT, DTmin, DTmax<br />local framesToStabilize = 3 -- this is related to FPS, not to audio<br /><br />function love.update(dt)<br />  if framesToStabilize == 0 then<br />    if not DTmin then DTmin, DTmax = dt, dt end<br />    DT = dt<br />  end<br /><br />  qs:step()<br />  if qs:getFreeBufferCount() ~= 0 then<br />    fill_buf()<br />    qs:queue(soundData)<br />    qs:play()<br />  end<br />end<br /><br />function love.draw()<br />  if framesToStabilize == 0 then<br />    DTmin = math.min(DT, DTmin)<br />    DTmax = math.max(DT, DTmax)<br />    love.graphics.print(&quot;FPS: min &quot; .. 1/DTmax .. &quot; max &quot; .. 1/DTmin .. &quot; current &quot; .. 1/DT)<br />  else<br />    framesToStabilize = framesToStabilize - 1<br />  end<br />end<br /><br />function love.keypressed(k)<br />  if k == &quot;escape&quot; then love.event.quit() end<br />end<br /></code></div><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137168">pgimeno</a> — Sat Apr 02, 2016 7:46 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Mateus]]></name></author>
+<updated>2016-04-02T15:10:59</updated>
+<published>2016-04-02T15:10:59</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82043&amp;p=197100#p197100</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82043&amp;p=197100#p197100"/>
+<title type="html"><![CDATA[Support and Development • Love2d android for API 10]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82043&amp;p=197100#p197100"><![CDATA[
+Hey, is it possible to build LOVE apk for android 2.3.3 (API 10) ?<br /><br />Thanks!<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136502">Mateus</a> — Sat Apr 02, 2016 3:10 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[MachineCode]]></name></author>
+<updated>2016-04-02T11:55:06</updated>
+<published>2016-04-02T11:55:06</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197093#p197093</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197093#p197093"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197093#p197093"><![CDATA[
+<blockquote class="uncited"><div><br />Also, when you say log compression on string encoding, do you mean compressing 16bit samplepoints into 8 bits? how would you get back the original 16bit fidelity though? I don't think it can be anything but lossless. Telephony log-compression like mu and a-law, like i wrote before, sacrifice enough to be (not even) decent for speech, but not music which has a greater range.<br /></div></blockquote><br /><br />Yes - you lose compared to 16 bit, but it's a bit better than storing 8 bit linear.  Assuming you don't clip, then most of the audio data will be at lower levels, so the log compression pushes more steps down there  at the expense of less resolution for the peaks.  I am mostly interested in noise and background loops - like a radio channel, so a bit of grainy sound is good.  Background music needs to be good quality, but some other sound effects can be grungy. I have a hunch that with some preprocessing, 8 bit u-law at 8KSa can be OK for some sound effects and voice channels.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135253">MachineCode</a> — Sat Apr 02, 2016 11:55 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[zorg]]></name></author>
+<updated>2016-04-02T04:30:13</updated>
+<published>2016-04-02T04:30:13</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197086#p197086</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197086#p197086"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197086#p197086"><![CDATA[
+Hmm, could have sworn i've seen a method to refresh... or yeah, on Image objects... that can get modified data from ImageDatas <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-three.png" alt=":3" title="Awww" /><br /><br />Well you might have a good solution with <a href="https://github.com/LPGhatguy/love-microphone/blob/master/love-microphone/QueueableSource.lua" class="postlink">this</a>. Queue in the sounddata, and play. Can't loop it though, sadly but i'm gonna experiment a bit with this since something was very off when i used it before.<br /><br />Also, when you say log compression on string encoding, do you mean compressing 16bit samplepoints into 8 bits? how would you get back the original 16bit fidelity though? I don't think it can be anything but lossless. Telephony log-compression like mu and a-law, like i wrote before, sacrifice enough to be (not even) decent for speech, but not music which has a greater range.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=80325">zorg</a> — Sat Apr 02, 2016 4:30 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[MachineCode]]></name></author>
+<updated>2016-04-01T23:58:56</updated>
+<published>2016-04-01T23:58:56</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197082#p197082</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197082#p197082"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197082#p197082"><![CDATA[
+OK that sounds promising.   I assume that data object you get from Data:getPointer is a byte array or short array depending on the bits parameter when the soundData was created?<br /><br />If you can efficiently fill a soundData from a string, it might be possible to squeeze a bit more from 8 bit by doing some log compression when encoding the string, then restore to 16 bit samples on decode using FFI. That would give a neat way to store lots of sound samples off client and restore them to a soundData. Each sound could be represented as just a string!<br /><br />The only thing missing (I think) is a source:refresh() method to update the source to play.  I am not sure if it is possible, but that would be the audio equivalent of the relationship between Image and ImageData.<br /><br />Thanks for all your help guys.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135253">MachineCode</a> — Fri Apr 01, 2016 11:58 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Ref]]></name></author>
+<updated>2016-04-01T23:20:51</updated>
+<published>2016-04-01T23:20:51</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197081#p197081</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197081#p197081"/>
+<title type="html"><![CDATA[Support and Development • Re: Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197081#p197081"><![CDATA[
+Could just check Modog's code over on 'Programs and Demos' or my code farther down the post.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=48377">Ref</a> — Fri Apr 01, 2016 11:20 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[monkeyman]]></name></author>
+<updated>2016-04-01T21:27:14</updated>
+<published>2016-04-01T21:27:14</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197079#p197079</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197079#p197079"/>
+<title type="html"><![CDATA[Support and Development • Re: Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197079#p197079"><![CDATA[
+<blockquote><div><cite>Doctory wrote:</cite><br />You could do this:<br /><div class="codebox"><p>Code: </p><code>  for k, v in ipairs(enemies)  do<br />     v.height = v.height + 100 * dt<br />  end<br /></code></div><br /><br />Put this in love.update.<br /></div></blockquote><br /><br />Small typo, v.y not v.height.<br /><br /><div class="codebox"><p>Code: </p><code>  for k, v in ipairs(enemies)  do<br />    v.y = v.y + 100 * dt<br />  end<br /></code></div><br /><br /><blockquote><div><cite>J4awesome wrote:</cite><br />I tried everything you told me to do but the 'enemies' are just staying there doing nothing.I sent to my main lua file to see if you know what the problem is.<br /><br />P.S-If the game looks rushed it's because i'm doing a 24 hour game challenge with my friend  <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-nyu.png" alt=":nyu:" title="Nyu" /><br /></div></blockquote><br /><br />Here are two .love files, the first is Madbyte's code with Doctory's update suggestion, the second is a small game I worked on a while ago to test out a similar problem. The enemies spawn at the top of the screen at a random x coordinate within the screen bounds, and you have to shoot them before they hit the ground. Arrow keys to move and spacebar to shoot. Hopefully going over the code will help with your problem.<br /><br />Edit: By the way that's some of the first code I ever wrote, and it's not particularly elegant. The enemy.update and enemy.spawn functions are what you should look at, ignore the other stuff.<dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12982&amp;sid=e1e4526dbe8479c12daa22634ac17f79">main.love</a></dt></dl><br /><dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12981&amp;sid=e1e4526dbe8479c12daa22634ac17f79">SquareBlaster.love</a></dt></dl><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137564">monkeyman</a> — Fri Apr 01, 2016 9:27 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[J4awesome]]></name></author>
+<updated>2016-04-01T20:23:01</updated>
+<published>2016-04-01T20:23:01</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197077#p197077</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197077#p197077"/>
+<title type="html"><![CDATA[Support and Development • Re: Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197077#p197077"><![CDATA[
+I tried everything you told me to do but the 'enemies' are just staying there doing nothing.I sent to my main lua file to see if you know what the problem is.<br /><br />P.S-If the game looks rushed it's because i'm doing a 24 hour game challenge with my friend  <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-nyu.png" alt=":nyu:" title="Nyu" /><dl class="file"><dt><span class="imageset icon_topic_attach"></span> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12979&amp;sid=e1e4526dbe8479c12daa22634ac17f79">main.lua</a></dt></dl><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137733">J4awesome</a> — Fri Apr 01, 2016 8:23 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Doctory]]></name></author>
+<updated>2016-04-01T19:54:55</updated>
+<published>2016-04-01T19:54:55</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197074#p197074</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197074#p197074"/>
+<title type="html"><![CDATA[Support and Development • Re: Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197074#p197074"><![CDATA[
+<blockquote><div><cite>J4awesome wrote:</cite><br />Hi,<br />I used your script in my game and I worked good.But the only thing is I couldn't figure out how to make the enemies move down to the bottom of the screen and hide itself.<br /></div></blockquote><br /><br />You could do this:<br /><div class="codebox"><p>Code: </p><code>  for k, v in ipairs(enemies)  do<br />     v.height = v.height + 100 * dt<br />  end<br /></code></div><br /><br />Put this in love.update.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=134446">Doctory</a> — Fri Apr 01, 2016 7:54 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[J4awesome]]></name></author>
+<updated>2016-04-01T19:43:34</updated>
+<published>2016-04-01T19:43:34</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197072#p197072</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197072#p197072"/>
+<title type="html"><![CDATA[Support and Development • Re: Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197072#p197072"><![CDATA[
+Hi,<br />I used your script in my game and I worked good.But the only thing is I couldn't figure out how to make the enemies move down to the bottom of the screen and hide itself.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137733">J4awesome</a> — Fri Apr 01, 2016 7:43 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[MadByte]]></name></author>
+<updated>2016-04-01T20:07:05</updated>
+<published>2016-04-01T19:21:26</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197071#p197071</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197071#p197071"/>
+<title type="html"><![CDATA[Support and Development • Re: Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197071#p197071"><![CDATA[
+Welcome J4awesome!<br /><br /><a href="http://www.lua.org/pil/2.5.html" class="postlink">Something to read about &quot;Tables&quot;</a><br /><a href="http://www.lua.org/pil/4.3.4.html" class="postlink">Something about &quot;numeric for loops&quot;</a><br /><br />There are tons of ways to use tables to hold multiple objects. Here is one:<br /><div class="codebox"><p>Code: </p><code>local enemies = {}<br /><br />function newEnemy(x,y)<br />  local enemy = {}<br />  enemy.x = x<br />  enemy.y = y<br />  enemy.width = 64<br />  enemy.height = 64<br />  enemy.removed = false<br />  table.insert(enemies, enemy)<br />end<br /><br /><br />function love.load()<br />  newEnemy(0, 0)<br />  newEnemy(100, 100)<br />  newEnemy(200, 200)<br />end<br /><br /><br />function love.update(dt)<br />  for i=#enemies, 1, -1 do<br />    local enemy = enemies&#91;i&#93;<br />    if not enemy.removed then<br />      -- update enemy<br />    else table.remove(enemies, i) end<br />  end<br />end<br /><br /><br />function love.draw()<br />  for i=#enemies, 1, -1 do<br />    local enemy = enemies&#91;i&#93;<br />    -- draw stuff<br />    love.graphics.rectangle(&quot;line&quot;, enemy.x, enemy.y, enemy.width, enemy.height)<br />  end<br />end<br /><br /><br />function love.keypressed(key)<br />  if key == &quot;escape&quot; then love.event.quit() end<br />  if key == &quot;space&quot; and #enemies &gt; 0 then enemies&#91;#enemies&#93;.removed = true end<br />end<br /></code></div><br /><div class="inline-attachment"><dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12978&amp;sid=e1e4526dbe8479c12daa22634ac17f79">spawnEnemies.love</a></dt></dl></div><br />I didn't added the movement because I'm sure you'll easily find out how to do it, anyway if you really want some help with it - <a href="http://www.headchant.com/2010/11/27/love2d-tutorial-part-1-invaders-must-die/" class="postlink">go here</a>.<br />Please read the Lua pil article before asking what exactly happens here. If you afterwards still got questions feel free to ask <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=116409">MadByte</a> — Fri Apr 01, 2016 7:21 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[zorg]]></name></author>
+<updated>2016-04-01T19:17:37</updated>
+<published>2016-04-01T19:17:37</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197070#p197070</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197070#p197070"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197070#p197070"><![CDATA[
+<blockquote><div><cite>MachineCode wrote:</cite><br />I will try a few of these ideas and see how they go.<br /><br />For 8 bit sounds it is possible to represent a sound buffer as a string. It might be possible to have a version of newSoundData that accepts a string as a parameter and initializes the sound data to that. 16 bit sound could be byte pairs in a string.  This could be useful for sound effect loops that need to be stored in a compact form.<br /></div></blockquote><br />It's also possible to do that for 16bit and 32 bit as well though, and even 24bit; in all cases it will be gibberish though <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-glad.png" alt=":D" title="Very Happy" /><br />But, you can use the FFI to set the data directly, using Data:getPointer on the SoundData, as i was told, since i needed to set bigger than one samplepoint chunks of it myself.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=80325">zorg</a> — Fri Apr 01, 2016 7:17 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[J4awesome]]></name></author>
+<updated>2016-04-01T18:28:07</updated>
+<published>2016-04-01T18:28:07</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197067#p197067</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197067#p197067"/>
+<title type="html"><![CDATA[Support and Development • Spawning Enemies]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82040&amp;p=197067#p197067"><![CDATA[
+Hi,<br />I new to love2d and I was wondering if there is a very simple way to spawn an enemy.The enemy need to be on the top of the screen and slowly coming down.I would also like for there to be about 2-3 enemies at a time.The size of the window for my game is 400x400.<br />Any help is great <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-smile.png" alt=":)" title="Smile" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137733">J4awesome</a> — Fri Apr 01, 2016 6:28 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[fixylol]]></name></author>
+<updated>2016-04-01T15:58:10</updated>
+<published>2016-04-01T15:58:10</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197065#p197065</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197065#p197065"/>
+<title type="html"><![CDATA[Support and Development • Re: how do you make love.graphics.print print over images?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197065#p197065"><![CDATA[
+thanks!<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137590">fixylol</a> — Fri Apr 01, 2016 3:58 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Nixola]]></name></author>
+<updated>2016-04-01T15:40:38</updated>
+<published>2016-04-01T15:40:38</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197064#p197064</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197064#p197064"/>
+<title type="html"><![CDATA[Support and Development • Re: how do you make love.graphics.print print over images?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197064#p197064"><![CDATA[
+Just call love.graphics.print after you call love.graphics.draw.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=12793">Nixola</a> — Fri Apr 01, 2016 3:40 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[fixylol]]></name></author>
+<updated>2016-04-01T15:31:41</updated>
+<published>2016-04-01T15:31:41</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197063#p197063</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197063#p197063"/>
+<title type="html"><![CDATA[Support and Development • how do you make love.graphics.print print over images?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82039&amp;p=197063#p197063"><![CDATA[
+or was i doing something wrong?<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137590">fixylol</a> — Fri Apr 01, 2016 3:31 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[MachineCode]]></name></author>
+<updated>2016-04-01T10:36:03</updated>
+<published>2016-04-01T10:36:03</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197058#p197058</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197058#p197058"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197058#p197058"><![CDATA[
+I will try a few of these ideas and see how they go.<br /><br />For 8 bit sounds it is possible to represent a sound buffer as a string. It might be possible to have a version of newSoundData that accepts a string as a parameter and initializes the sound data to that. 16 bit sound could be byte pairs in a string.  This could be useful for sound effect loops that need to be stored in a compact form.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=135253">MachineCode</a> — Fri Apr 01, 2016 10:36 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[monkeyman]]></name></author>
+<updated>2016-04-01T08:19:29</updated>
+<published>2016-04-01T08:19:29</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197056#p197056</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197056#p197056"/>
+<title type="html"><![CDATA[Support and Development • Re: Trouble with collision resolution (sliding entities)]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197056#p197056"><![CDATA[
+Thanks Ivan, I appreciate your help. That's definitely a lot of information to take in, I'll keeping working at it and I'll bump the thread if I need  anymore guidance.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137564">monkeyman</a> — Fri Apr 01, 2016 8:19 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[ivan]]></name></author>
+<updated>2016-04-01T08:00:45</updated>
+<published>2016-04-01T08:00:45</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197054#p197054</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197054#p197054"/>
+<title type="html"><![CDATA[Support and Development • Re: Trouble with collision resolution (sliding entities)]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197054#p197054"><![CDATA[
+Hi there.<br />Collision response can be a very complicated problem so keep that in mind.<br /><blockquote class="uncited"><div><br />I'm writing some collision code<br /></div></blockquote><br />Basically you want to adjust your algorithm so it looks like:<br />1. move objects<br />2. check for intersections<br />3. separate intersecting objects<br />4. adjust velocities of colliding objects<br /><br /><blockquote class="uncited"><div><br />if so move the player to his previous x position<br /></div></blockquote><br />You can't do that if you want decent-looking collisions.<br />You have to find the &quot;shortest separation vector&quot; between the two colliding rectangles.<br />Then you separate the objects and adjust their velocities.<br />This is called &quot;non-continuous&quot; collision (bump uses &quot;continuous&quot; collision which is more complicated)<br /><br /><blockquote class="uncited"><div><br />I'd like to be able to slide along the box while holding two keys<br /></div></blockquote><br />There are 2 variables that will affect collisions: friction and restitution.<br />These two variables affect how the velocities are adjusted AFTER the collision.<br />Here is the tutorial I wrote a while ago:<br /><!-- m --><a class="postlink" href="http://2dengine.com/doc/gs_collision.html">http://2dengine.com/doc/gs_collision.html</a><!-- m --><br />HTML5 demo:<br /><!-- m --><a class="postlink" href="http://2dengine.com/doc/tutorials/html5/index.html">http://2dengine.com/doc/tutorials/html5/index.html</a><!-- m --><br />Note that if the restitution (bounce) is always 0 and friction is always 0<br />then the equations can be simplified even further.<br /><br />Things get quite complicated if want to have torque/rotation,<br />realistic transfer of momentum (depending on mass)<br />or a lot of moving objects (broadphase) so it's important to keep it as simple as possible<br />when writing your own collision system.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=69">ivan</a> — Fri Apr 01, 2016 8:00 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[monkeyman]]></name></author>
+<updated>2016-04-01T07:41:09</updated>
+<published>2016-04-01T07:41:09</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197053#p197053</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197053#p197053"/>
+<title type="html"><![CDATA[Support and Development • Trouble with collision resolution (sliding entities)]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82038&amp;p=197053#p197053"><![CDATA[
+Hi, I'm writing some collision code that I can't seem to get working the way I want. Here are the steps I'm taking to try to resolve collisions between a player moved by the arrow keys and a static box:<br /><br />Step 1: move player in response to key presses<br /><br />Step 2: check if the player's bounding box intersects with the box's bounding box, if so continue to step 3, otherwise back to step 1<br /><br />Step 3: check if the player collided with the box along the x axis, if so move the player to his previous x position (before the collision happened) and continue to step 4, otherwise go to step 5<br /><br />Step 4: check if the player collided with the box along the y axis, if so move the player to his previous y position, then go back to step 1<br /><br />Step 5: the player must have only collided along the y axis, so move the player to his previous y position, and leave his x position as-is<br /><br />So far the code mostly works, it resolves the collision nicely if the player is only moving in one direction (either at the box or along it), but if you try to move into the box diagonally the player stops in a jarring way. I'd like to be able to slide along the box while holding two keys. I've used Kikito's Bump library before and it handled the sliding behavior very well, but his code is slightly above my understanding so if I can code my own collision functions from scratch in a more simple way (even with outside help) that would be preferable.<br /><br />Any help you guys are able to provide would be great.<dl class="file"><dt><img src="./images/upload_icons/love.png" alt="" /> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12974&amp;sid=e1e4526dbe8479c12daa22634ac17f79">collision.love</a></dt></dl><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=137564">monkeyman</a> — Fri Apr 01, 2016 7:41 am</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[zorg]]></name></author>
+<updated>2016-03-31T17:02:39</updated>
+<published>2016-03-31T17:02:39</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197025#p197025</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197025#p197025"/>
+<title type="html"><![CDATA[Support and Development • Re: How to serialize/deserialize a SoundData object?]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82033&amp;p=197025#p197025"><![CDATA[
+Can't comment on the first paragraph, since i haven't tested it.<br /><br />As for the third, i wouldn't recommend doing that kind of computation, at least, not in realtime circumstances; calling setSample is relatively slow. (an example: i couldn't do that fast enough to dynamically create a stereo, 44.1kHz, 8bit audio stream, meaning calculating 2*44100*1 numbers per second, though i was able to with a mono signal at 8kHz... coincidentally, telephony codecs like a-law and mu-law work on a rate of 8000 samples per second as well)<br />That said, if you'd need to decode it only once, then it could work.<br /><br />Related to the second point, whether or not you decide to compress your data, iirc you'll need to chunk it in smaller pieces when sending it, otherwise luasocket/enet won't send all of it to the client... or at least i remember something like that being talked about in another thread, or on the irc channel...  <img class="smilies" src="https://love2d.org/forums/images/smilies/ms-glee.png" alt="^^" title="Glee" /><p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=80325">zorg</a> — Thu Mar 31, 2016 5:02 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Mateus]]></name></author>
+<updated>2016-03-31T16:57:12</updated>
+<published>2016-03-31T16:57:12</published>
+<id>https://love2d.org/forums/viewtopic.php?t=82030&amp;p=197024#p197024</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=82030&amp;p=197024#p197024"/>
+<title type="html"><![CDATA[Support and Development • Re: Android game]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=82030&amp;p=197024#p197024"><![CDATA[
+Okey seems like the builder provided in the video wasn't ment for Android builds lower than 19. Which my phone obviously was.<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=136502">Mateus</a> — Thu Mar 31, 2016 4:57 pm</p><hr />
+]]></content>
+</entry>
+<entry>
+<author><name><![CDATA[Ekamu]]></name></author>
+<updated>2016-03-31T13:03:28</updated>
+<published>2016-03-31T13:03:28</published>
+<id>https://love2d.org/forums/viewtopic.php?t=80853&amp;p=197020#p197020</id>
+<link href="https://love2d.org/forums/viewtopic.php?t=80853&amp;p=197020#p197020"/>
+<title type="html"><![CDATA[Support and Development • Re: Isometric game collision]]></title>
+
+<category term="Support and Development" scheme="https://love2d.org/forums/viewforum.php?f=4" label="Support and Development"/>
+<content type="html" xml:base="https://love2d.org/forums/viewtopic.php?t=80853&amp;p=197020#p197020"><![CDATA[
+I have the same problems so...<br /><br /><strong>NECROPOST</strong> <br /><br />You can use polygons for isometric projection like this. All you need is to draw the top diamond, left diamond and right diamond.<br /><div class="inline-attachment"><dl class="file"><dt><span class="imageset icon_topic_attach"></span> <a class="postlink" href="https://love2d.org/forums/download/file.php?id=12968&amp;sid=e1e4526dbe8479c12daa22634ac17f79">Isometric_collision.zip</a></dt></dl></div><br /><br />Later on if you used polygons, you can work with polygon mesh and create textures like in Minecraft. Its just a drawing style so forget about isometric collision, such a thing is impossible because we are dealing with two things at one go. x and y. What this means is that there is a new variable called z, this z variable is either a sum or difference of x and y. <br /><br />In programming when we want to remember something we store them in variables. In Lua variables are not type specific and global by default. <br /><br />--later on you want these in two variables zx and zy not just z because collision is 2d<br />z= (+x,+y) --zx<br />z = (-x,+y) --zy<br />z = (-x,-y) --zx<br />z = (+x,-y) --zy<br /><br />These are sort of like fake octants. Basically we have a new co-ordinate system that is based on x and y sums or differences.  <br />zx = x+y<br />zy = y-x<br />zx = -x-y<br />zy = x+y<br /><br />So zx and zy become some values just like x and y. Test this out with love.graphics.print() and move around. <br /><br />Collision is always one of the two things. An Inequality (see Lua BoundingBox)  wich works for moving objects such as bullets or other entities or a matrix such as map[z/units] == 0 <br /><br />Just to note, you might want to use math.floor to round down to an integer or math.ceil to round up. Never use floating points inside indexes. This is Lua suicide map[0.283838][0.3883833]. <br /><br />Matrix Isometric collision is very complex because rendering 3d into 2d is not easy, there surds involved like arctan 1/squareroot(2) which is like 35.264 degrees (3.s.f). You need a 3D engine to render this which is not necessary since you can plot something close enough without those calculations to determine the angles of each face.<br /><br />Look at cube in the source code. its a table with points for the polygon, each side top, left and right. <br /><br />If isometric rotation is mandatory then I would recommend a 3d engine altogether.<br /><br />For basic 2d isometric matrix collision, use the fake octants zx and zy and divide them into units. I've never done this so its just a theory. I think it works the same.<br /><br /> Anyway back to the topic.<br /><br />Then movement is something like<br /><div class="codebox"><p>Code: </p><code>   if love.keyboard.isDown('up') then<br />   c.y = c.y - 1<br />   c.x = c.x + 1<br />   end<br />   if love.keyboard.isDown('right') then<br />   c.y = c.y + 1<br />   c.x = c.x + 1<br />   end<br />   if love.keyboard.isDown('down') then<br />   c.y = c.y + 1<br />   c.x = c.x - 1<br />   end<br />   if love.keyboard.isDown('left') then<br />   c.y = c.y - 1<br />   c.x = c.x - 1<br />   end<br /></code></div><br /><br />Try add in some Boolean logic in the if statements for collision. Here is an example of what it might look<br /><br /><div class="codebox"><p>Code: </p><code>   if love.keyboard.isDown('up') and (c.zy &lt; o.zy) then<br />   c.y = c.y - 1<br />   c.x = c.x + 1<br />   end<br />   if love.keyboard.isDown('right') and (c.zx &gt; o.zx) then<br />   c.y = c.y + 1<br />   c.x = c.x + 1<br />   end<br />   if love.keyboard.isDown('down') and (c.zy &lt; o.zy) then<br />   c.y = c.y + 1<br />   c.x = c.x - 1<br />   end<br />   if love.keyboard.isDown('left') and (c.zx &gt; o.zx)  then<br />   c.y = c.y - 1<br />   c.x = c.x - 1<br />   end<br /></code></div><br /><br /><a href="https://love2d.org/wiki/BoundingBox.lua" class="postlink">Lua Bounding Box</a><br /><br />Tell me if it works out, I'll try not to necropost but I had the same problem and I am working on this too. Lets learn this together (^_^).<p>Statistics: Posted by <a href="https://love2d.org/forums/memberlist.php?mode=viewprofile&amp;u=134065">Ekamu</a> — Thu Mar 31, 2016 1:03 pm</p><hr />
+]]></content>
+</entry>
+</feed>
